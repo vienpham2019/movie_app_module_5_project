@@ -6,13 +6,19 @@ export default class NavBar extends Component {
     render() {
         return(
             <div>
-                <button>
+                <button onClick = {
+                    window.scrollTo(0, 0)
+                }>
                     <NavLink to = "/" >Home Page</NavLink>
                 </button>
-                <button>
+                <button onClick = {
+                    window.scrollTo(0, 0)
+                }>
                     <NavLink to = "/login">Login Page</NavLink>
                 </button>
-                <button>
+                <button onClick = {
+                    window.scrollTo(0, 0)
+                }>
                     <NavLink to = "/signup">SignUp Page</NavLink>
                 </button>
             </div>

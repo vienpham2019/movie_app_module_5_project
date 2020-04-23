@@ -14,7 +14,7 @@ class Login extends Component {
         }
         fetch("http://localhost:3000/login" , obj)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => localStorage.token = data.token)
         e.target.reset()
     }
     render() {
