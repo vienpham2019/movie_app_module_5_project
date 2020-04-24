@@ -43,7 +43,13 @@ class ReviewCard extends Component{
                 }
 
                 <div>
-                    {review.nestedComments.map(comment => <NestedComment comment = {comment} />)}
+                    {review.nestedComments.map((comment,index) => 
+                        <NestedComment 
+                            key = {`${review.title} comment ${index}`}
+                            comment = {comment} 
+                            reviewOfComment = {review}
+                        />
+                    )}
                 </div>
 
             </div>

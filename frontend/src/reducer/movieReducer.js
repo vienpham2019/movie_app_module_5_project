@@ -1,8 +1,12 @@
+
+import { add_review , add_nested_comments , add_like_or_dislike_for_review , add_like_or_dislike_for_comment} from  './reducerAction/handleMovieAction'
+
 let initialState = {
     movies: [],
     movie: {},
     displayMovie: {},
     showMovieReviews: [],
+    showMovieReviewsId: null, 
     makeLikeAction: []
 }
 
@@ -24,57 +28,63 @@ export default function movieReducer(state = initialState, action) {
         case "SET_SHOW_MOVIE_REVIEWS": 
             return{
                 ...state, 
-                showMovieReviews: action.reviews
+                showMovieReviews: action.reviews,
+                showMovieReviewsId: action.reviewId
             }
 
         case "ADD_REVIEW":
-            let new_review = {
-                author: "Vien",
-                content: action.review,
-                likes: 0 ,
-                dislikes: 0, 
-                nestedComments: []
-            }
+            let add_review_obj = add_review("vien", action.review , state.showMovieReviews)
             
             return{
                 ...state, 
-                showMovieReviews: [new_review,...state.showMovieReviews]
+                showMovieReviews: add_review_obj
             }
 
         case "ADD_TO_NESTED_COMMENTS": 
-            let reviewIndex = state.showMovieReviews.indexOf(action.review)
-            let newComment = {
-                author: "Vien",
-                content: action.comment,
-                likes: 0,
-                dislikes: 0
-            }
-            let updateReview = state.showMovieReviews[reviewIndex]
-            updateReview.nestedComments = [newComment,...updateReview.nestedComments]
-            console.log(updateReview)
+            
+            let add_nested_comments_obj = add_nested_comments("vien", action.comment , action.review , state.showMovieReviews)
+
             return{
                 ...state, 
-                showMovieReviews: [...state.showMovieReviews.slice(0,reviewIndex),updateReview,...state.showMovieReviews.slice(reviewIndex + 1)]
+                showMovieReviews: add_nested_comments_obj
             }
 
-        case "ADD_LIKE": 
-            let likeIndex = state.showMovieReviews.indexOf(action.review)
-            let newReviewForLike = state.showMovieReviews[likeIndex]
-            newReviewForLike.likes += action.amount
+        case "ADD_LIKE_FOR_REVIEW": 
+
+            let add_like_for_review_obj = 
+                add_like_or_dislike_for_review( "likes" , action.amount , action.review , state.showMovieReviews)
 
             return {
                 ...state,
-                showMovieReviews: [...state.showMovieReviews.slice(0,likeIndex),newReviewForLike,...state.showMovieReviews.slice(likeIndex + 1)]
+                showMovieReviews: add_like_for_review_obj
             }
 
-        case "ADD_DISLIKE": 
-            let dislikeIndex = state.showMovieReviews.indexOf(action.review)
-            let newReviewForDislike = state.showMovieReviews[dislikeIndex]
-            newReviewForDislike.dislikes += action.amount
+        case "ADD_DISLIKE_FOR_REVIEW": 
+
+            let add_dislike_for_review_obj = 
+                add_like_or_dislike_for_review("dislikes" , action.amount , action.review , state.showMovieReviews)
 
             return {
                 ...state,
-                showMovieReviews: [...state.showMovieReviews.slice(0,dislikeIndex),newReviewForDislike,...state.showMovieReviews.slice(dislikeIndex + 1)]
+                showMovieReviews: add_dislike_for_review_obj
+            }
+
+        case "ADD_LIKE_FOR_COMMENT":
+
+            let add_like_for_comment_obj = add_like_or_dislike_for_comment("likes" , action.amount , action.comment , action.review , state.showMovieReviews)
+
+            return {
+                ...state,
+                showMovieReviews: add_like_for_comment_obj 
+            }
+
+        case "ADD_DISLIKE_FOR_COMMENT": 
+
+            let add_dislike_for_comment_obj = add_like_or_dislike_for_comment("dislikes" , action.amount , action.comment , action.review , state.showMovieReviews)
+
+            return {
+                ...state,
+                showMovieReviews: add_dislike_for_comment_obj 
             }
     
         default:

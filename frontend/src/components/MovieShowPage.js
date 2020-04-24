@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
 import ReviewCard from '../contents/ReviewCard'
+import uploadReviewToDataBase from  '../reducer/uploadReviewToDatabase'
 
 class MovieShowPage extends  Component {
 
@@ -8,6 +9,14 @@ class MovieShowPage extends  Component {
         super()
         this.state = {
             text: ""
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.reviews !== prevProps.reviews){
+            if(prevProps.reviews.length !== 0){
+                uploadReviewToDataBase(this.props.reviews, this.props.reviewId)
+            }
         }
     }
     
@@ -28,7 +37,12 @@ class MovieShowPage extends  Component {
                     }}
                 >REVIEW</button>
                 <div>
-                    {reviews.map((review,index) => <ReviewCard review = {review} index = {index}/>)}
+                    {reviews.map((review,index) => 
+                        <ReviewCard 
+                            review = {review} 
+                            key = {`${review} review ${index}`}
+                        />
+                    )}
                 </div>
             </div>
         )
@@ -37,7 +51,8 @@ class MovieShowPage extends  Component {
 
 const mapStateToProps = state => {
     return {
-        reviews: state.showMovieReviews
+        reviews: state.showMovieReviews,
+        reviewId: state.showMovieReviewsId
     }
 }
 

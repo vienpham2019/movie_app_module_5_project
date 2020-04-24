@@ -6,7 +6,9 @@ class MovieCard extends Component {
     getReviews = movieId => {
         fetch(`http://localhost:3000/get_reviews/${movieId}`)
         .then(res => res.json())
-        .then(data => this.props.setShowMovieReviews(data.comments))
+        .then(data => {
+            this.props.setShowMovieReviews(data.comments,data.id)
+        })
     }
 
     render(){
@@ -27,7 +29,7 @@ class MovieCard extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         setMovieId: movie => dispatch({type: "SET_MOVIE_ID", movie}),
-        setShowMovieReviews: reviews => dispatch({type: "SET_SHOW_MOVIE_REVIEWS", reviews})
+        setShowMovieReviews: (reviews,reviewId) => dispatch({type: "SET_SHOW_MOVIE_REVIEWS", reviews , reviewId})
     }
 }
 
