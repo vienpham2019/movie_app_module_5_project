@@ -33,7 +33,7 @@ class App extends Component {
                     render = {(routerProps) => <SignUp {...routerProps} /> }
                 />
                 <Route 
-                    exact path = {`/movie/${this.props.movie.movieId}/&title=${this.props.movie.movieTitle}`} 
+                    exact path = {`/movie/${this.props.movie.movieId}`} 
                     render = {(routerProps) => <MovieShowPage {...routerProps} movie = {this.props.displayMovie}/> }
                 />
                 </div>

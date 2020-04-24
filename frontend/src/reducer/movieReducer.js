@@ -27,6 +27,36 @@ export default function movieReducer(state = initialState, action) {
                 showMovieReviews: action.reviews
             }
 
+        case "ADD_REVIEW":
+            let new_review = {
+                author: "Vien",
+                content: action.review,
+                likes: 0 ,
+                dislikes: 0, 
+                nestedComments: []
+            }
+            
+            return{
+                ...state, 
+                showMovieReviews: [new_review,...state.showMovieReviews]
+            }
+
+        case "ADD_TO_NESTED_COMMENTS": 
+            let reviewIndex = state.showMovieReviews.indexOf(action.review)
+            let newComment = {
+                author: "Vien",
+                content: action.comment,
+                likes: 0,
+                dislikes: 0
+            }
+            let updateReview = state.showMovieReviews[reviewIndex]
+            updateReview.nestedComments = [newComment,...updateReview.nestedComments]
+            console.log(updateReview)
+            return{
+                ...state, 
+                showMovieReviews: [...state.showMovieReviews.slice(0,reviewIndex),updateReview,...state.showMovieReviews.slice(reviewIndex + 1)]
+            }
+
         case "ADD_LIKE": 
             let likeIndex = state.showMovieReviews.indexOf(action.review)
             let newReviewForLike = state.showMovieReviews[likeIndex]

@@ -14,7 +14,7 @@ class MovieCard extends Component {
         return(
             <div onClick = {() => {
                 this.getReviews(movie.id)
-                this.props.history.push(`/movie/${movie.id}/&title=${encodeURI(movie.title)}`)
+                this.props.history.push(`/movie/${movie.id}`)
                 this.props.setMovieId({movieId: movie.id, movieTitle: movie.title})
                 }}>
                 <h3>{movie.title}</h3>

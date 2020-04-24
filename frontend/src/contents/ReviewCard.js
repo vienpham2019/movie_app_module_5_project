@@ -1,69 +1,54 @@
 import React , {Component} from 'react' 
-import {connect} from 'react-redux'
+
+import NestedComment from './NestedComment'
+import LikeDislike from './LikeDislike'
+import ReplyComment from './ReplyComment'
 
 class ReviewCard extends Component{
-    constructor(props){
+
+    constructor(){
         super()
         this.state = {
-            likes: props.review.likes,
-            dislikes: props.review.dislikes,
-            likeStatus: false, 
-            dislikeStatus: false
+            hidden_text: true,
+            display_reply: false, 
         }
     }
 
-    handleLike = (review) => {
-        let likeAmount = !this.state.likeStatus ? 1 : 0
-        let dislikeAmount = !this.state.dislikeStatus ? 0 : -1
-
-        this.props.addLike(review,likeAmount)
-        this.props.addDislike(review,dislikeAmount)
-
-        this.setState(
-            {
-                likes: this.state.likes + likeAmount, 
-                dislikes: this.state.dislikes + dislikeAmount ,
-                likeStatus: true, 
-                dislikeStatus: false}
-            )
-    }
-
-    handleDislike = (review) => {
-        let dislikeAmount = !this.state.dislikeStatus ? 1 : 0
-        let likeAmount = !this.state.likeStatus ? 0 : -1
-
-        this.props.addDislike(review,dislikeAmount)
-        this.props.addLike(review,likeAmount)
-
-        this.setState(
-            {
-                dislikes: this.state.dislikes + dislikeAmount , 
-                likes: this.state.likes + likeAmount , 
-                likeStatus: false, 
-                dislikeStatus: true
-            })
+    handleReplyButton = () => {
+        this.setState({display_reply: !this.state.display_reply})
     }
 
     render() {
         let review = this.props.review
         return (
             <div>
+
                 <h3>{review.author}</h3>
-                <p>{review.content}</p>
-                <label>Likes: {this.state.likes}</label>
-                <button onClick = {() => this.handleLike(review)}>Like</button><br/>
-                <label>Dislikes: {this.state.dislikes}</label>
-                <button onClick = {() => this.handleDislike(review)}>Dislike</button><br/>
+                <div className="comment_review_content" style={this.state.hidden_text ? {overflow: "hidden", textOverflow: "ellipsis" , display: "-webkit-box" , WebkitLineClamp: "2" , WebkitBoxOrient: "vertical", height: "3.2em"} : null }>
+                    <p id={this.props.index}>{review.content}</p>
+                </div>
+
+                {review.content.length > 300 ? 
+                    <button className="show_text_btn" onClick = {() => this.setState({hidden_text: !this.state.hidden_text})}>{this.state.hidden_text ? "Read more" : "Show less"}</button>
+                    : null 
+                }
+
+                <LikeDislike review = {review} /> 
+
+                <button className="reply_btn" onClick = {() => this.handleReplyButton()}>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
+                {
+                    this.state.display_reply ? 
+                        <ReplyComment review = {review} handleReplyButton = {this.handleReplyButton}/> 
+                    : null 
+                }
+
+                <div>
+                    {review.nestedComments.map(comment => <NestedComment comment = {comment} />)}
+                </div>
+
             </div>
         )
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addLike: (review,amount) => dispatch({type: "ADD_LIKE", review , amount}),
-        addDislike: (review,amount) => dispatch({type: "ADD_DISLIKE" , review , amount})
-    }
-}
-
-export default connect(null,mapDispatchToProps)(ReviewCard)
+export default ReviewCard
