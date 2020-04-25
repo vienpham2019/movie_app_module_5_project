@@ -1,5 +1,6 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
+import swal from 'sweetalert'
 
 class LikeDislike extends Component {
     constructor(props){
@@ -7,8 +8,8 @@ class LikeDislike extends Component {
         this.state = {
             likes: props.review.likes,
             dislikes: props.review.dislikes,
-            likeStatus: false, 
-            dislikeStatus: false
+            likeStatus: props.review.likeUsers.includes(props.userName),
+            dislikeStatus: props.review.dislikeUsers.includes(props.userName)
         }
     }
 
@@ -17,15 +18,26 @@ class LikeDislike extends Component {
             let review = this.props.review
             this.setState({
                 likes: review.likes, 
-                dislikes: review.dislikes})
+                dislikes: review.dislikes
+            })
+        }
+        if(prevProps.userName !== this.props.userName){
+            this.setState({
+                likeStatus: this.props.review.likeUsers.includes(this.props.userName),
+                dislikeStatus: this.props.review.dislikeUsers.includes(this.props.userName)
+            })
         }
     }
 
     handleLike = (review) => {
+        if(!this.props.userName){
+            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+        }
+        
         let likeAmount = this.state.likeStatus ? 0 : 1
         let dislikeAmount = this.state.dislikeStatus ? -1 : 0
 
-        if(!this.state.likeStatus){
+        if(!this.state.likeStatus && this.props.userName){
             if(!this.props.reviewOfComment){
                 this.props.addLikeForReview(review,likeAmount)
                 this.props.addDislikeForReview(review,dislikeAmount)
@@ -45,10 +57,14 @@ class LikeDislike extends Component {
     }
 
     handleDislike = (review) => {
+        if(!this.props.userName){
+            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+        }
+
         let dislikeAmount = !this.state.dislikeStatus ? 1 : 0
         let likeAmount = !this.state.likeStatus ? 0 : -1
 
-        if(!this.state.dislikeStatus){
+        if(!this.state.dislikeStatus && this.props.userName){
             if(!this.props.reviewOfComment){
                 this.props.addDislikeForReview(review,dislikeAmount)
                 this.props.addLikeForReview(review,likeAmount)
@@ -71,14 +87,28 @@ class LikeDislike extends Component {
         let review = this.props.review
         return(
             <div className="like_dislike_reply_container">
-                <button onClick = {() => this.handleLike(review)} className="like_and_dislike_btn">
+                <button 
+                    onClick = {() => this.handleLike(review)} 
+                    className="like_and_dislike_btn"
+                    style={this.state.likeStatus ? {color: "rgb(53, 53, 155)"} : null}
+                >
                     <i class="fa fa-thumbs-up"></i><label>{this.state.likes}</label>
                 </button>
-                <button onClick = {() => this.handleDislike(review)} className="like_and_dislike_btn">
+                <button 
+                    onClick = {() => this.handleDislike(review)} 
+                    className="like_and_dislike_btn"
+                    style={this.state.dislikeStatus ? {color: "rgb(53, 53, 155)"} : null}
+                >
                     <i class="fa fa-thumbs-down"></i><label>{this.state.dislikes}</label>
                 </button>
             </div>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        userName: state.userName
     }
 }
 
@@ -91,4 +121,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LikeDislike)
+export default connect(mapStateToProps, mapDispatchToProps)(LikeDislike)

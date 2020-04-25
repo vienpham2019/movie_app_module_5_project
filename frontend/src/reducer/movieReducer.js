@@ -78,7 +78,7 @@ export default function movieReducer(state = initialState, action) {
 
         case "ADD_LIKE_FOR_COMMENT":
 
-            let add_like_for_comment_obj = add_like_or_dislike_for_comment("likes" , action.amount , action.comment , action.review , state.showMovieReviews)
+            let add_like_for_comment_obj = add_like_or_dislike_for_comment("likes" ,state.userName, action.amount , action.comment , action.review , state.showMovieReviews)
 
             return {
                 ...state,
@@ -87,7 +87,7 @@ export default function movieReducer(state = initialState, action) {
 
         case "ADD_DISLIKE_FOR_COMMENT": 
 
-            let add_dislike_for_comment_obj = add_like_or_dislike_for_comment("dislikes" , action.amount , action.comment , action.review , state.showMovieReviews)
+            let add_dislike_for_comment_obj = add_like_or_dislike_for_comment("dislikes" ,state.userName, action.amount , action.comment , action.review , state.showMovieReviews)
 
             return {
                 ...state,

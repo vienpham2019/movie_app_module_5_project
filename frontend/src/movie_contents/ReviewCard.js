@@ -1,4 +1,6 @@
 import React , {Component} from 'react' 
+import swal from 'sweetalert'
+import {connect} from 'react-redux'
 
 import NestedComment from './NestedComment'
 import LikeDislike from './LikeDislike'
@@ -41,7 +43,14 @@ class ReviewCard extends Component{
 
                 <LikeDislike review = {review} /> 
 
-                <button className="reply_btn like_dislike_reply_container" onClick = {() => this.handleReplyButton()}>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
+                <button 
+                    className="reply_btn like_dislike_reply_container" 
+                    onClick = {() => 
+                        this.props.userName ? 
+                            this.handleReplyButton() 
+                        : 
+                            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+                    }>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
                 {
                     this.state.display_reply ? 
                         <ReplyComment review = {review} handleReplyButton = {this.handleReplyButton} showReplyList = {this.showReplyList}/> 
@@ -72,4 +81,10 @@ class ReviewCard extends Component{
     }
 }
 
-export default ReviewCard
+const mapStateToProps = state => {
+    return {
+        userName: state.userName
+    }
+}
+
+export default connect(mapStateToProps)(ReviewCard)

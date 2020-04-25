@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
-import MovieCard from '../contents/MovieCard'
+import MovieCard from '../movie_contents/MovieCard'
 
 class HomePage extends Component {
 
