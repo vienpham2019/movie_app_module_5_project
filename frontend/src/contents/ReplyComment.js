@@ -16,6 +16,7 @@ class ReplyComment extends Component {
                 <button 
                     className={this.state.text !== "" ? "btn btn-primary" : "btn btn-secondary"}
                     onClick = {() => {
+                        this.props.showReplyList()
                         this.props.handleReplyButton()
                         this.props.addToNestedComment(this.state.text,review)
                         this.setState({text: ""})

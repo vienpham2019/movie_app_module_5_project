@@ -3,7 +3,9 @@ const add_review = (author, content ,review_arr) => {
         author,
         content,
         likes: 0,
+        likeUsers: [],
         dislikes: 0, 
+        dislikeUsers: [],
         nestedComments: []
     }
     return [new_review,...review_arr]
@@ -16,7 +18,9 @@ const add_nested_comments = (author , content , review, review_arr ) => {
         author,
         content,
         likes: 0,
-        dislikes: 0
+        likeUsers: [],
+        dislikes: 0,
+        dislikeUsers: []
     }
     let updateReview = review_arr[index]
     updateReview.nestedComments = [newComment,...updateReview.nestedComments]
@@ -29,7 +33,11 @@ const add_like_or_dislike_for_review = (likes_or_dislikes, amount, review , revi
     let index = review_arr.indexOf(review)
     let newReview = review_arr[index]
 
-    likes_or_dislikes === "likes" ? newReview.likes += amount : newReview.dislikes += amount
+    if(likes_or_dislikes === "likes"){
+        newReview.likes += amount
+    }else{
+        newReview.dislikes += amount
+    }
 
     return [...review_arr.slice(0,index),newReview,...review_arr.slice(index + 1)]
 }

@@ -70,11 +70,13 @@ class LikeDislike extends Component {
     render() {
         let review = this.props.review
         return(
-            <div>
-                <label>Likes: {this.state.likes}</label>
-                <button onClick = {() => this.handleLike(review)}>Like</button><br/>
-                <label>Dislikes: {this.state.dislikes}</label>
-                <button onClick = {() => this.handleDislike(review)}>Dislike</button><br/>
+            <div className="like_dislike_reply_container">
+                <button onClick = {() => this.handleLike(review)} className="like_and_dislike_btn">
+                    <i class="fa fa-thumbs-up"></i><label>{this.state.likes}</label>
+                </button>
+                <button onClick = {() => this.handleDislike(review)} className="like_and_dislike_btn">
+                    <i class="fa fa-thumbs-down"></i><label>{this.state.dislikes}</label>
+                </button>
             </div>
         )
     }

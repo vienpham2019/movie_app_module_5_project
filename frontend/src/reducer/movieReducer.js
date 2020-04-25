@@ -7,6 +7,7 @@ let initialState = {
     displayMovie: {},
     showMovieReviews: [],
     showMovieReviewsId: null, 
+    userName: null, 
     makeLikeAction: []
 }
 
@@ -32,8 +33,14 @@ export default function movieReducer(state = initialState, action) {
                 showMovieReviewsId: action.reviewId
             }
 
+        case "SET_USER_NAME":
+            return{
+                ...state,
+                userName: action.userName
+            }
+
         case "ADD_REVIEW":
-            let add_review_obj = add_review("vien", action.review , state.showMovieReviews)
+            let add_review_obj = add_review(state.userName, action.review , state.showMovieReviews)
             
             return{
                 ...state, 
@@ -42,7 +49,7 @@ export default function movieReducer(state = initialState, action) {
 
         case "ADD_TO_NESTED_COMMENTS": 
             
-            let add_nested_comments_obj = add_nested_comments("vien", action.comment , action.review , state.showMovieReviews)
+            let add_nested_comments_obj = add_nested_comments(state.userName, action.comment , action.review , state.showMovieReviews)
 
             return{
                 ...state, 
@@ -52,7 +59,7 @@ export default function movieReducer(state = initialState, action) {
         case "ADD_LIKE_FOR_REVIEW": 
 
             let add_like_for_review_obj = 
-                add_like_or_dislike_for_review( "likes" , action.amount , action.review , state.showMovieReviews)
+                add_like_or_dislike_for_review( "likes" ,state.userName, action.amount , action.review , state.showMovieReviews)
 
             return {
                 ...state,
@@ -62,7 +69,7 @@ export default function movieReducer(state = initialState, action) {
         case "ADD_DISLIKE_FOR_REVIEW": 
 
             let add_dislike_for_review_obj = 
-                add_like_or_dislike_for_review("dislikes" , action.amount , action.review , state.showMovieReviews)
+                add_like_or_dislike_for_review("dislikes" ,state.userName , action.amount , action.review , state.showMovieReviews)
 
             return {
                 ...state,

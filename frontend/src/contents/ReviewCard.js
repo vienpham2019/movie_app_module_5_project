@@ -11,6 +11,7 @@ class ReviewCard extends Component{
         this.state = {
             hidden_text: true,
             display_reply: false, 
+            hidden_reply: true
         }
     }
 
@@ -18,8 +19,13 @@ class ReviewCard extends Component{
         this.setState({display_reply: !this.state.display_reply})
     }
 
+    showReplyList = () => {
+        this.setState({hidden_reply: false})
+    }
+
     render() {
         let review = this.props.review
+        let nestedComments = review.nestedComments
         return (
             <div>
 
@@ -35,22 +41,31 @@ class ReviewCard extends Component{
 
                 <LikeDislike review = {review} /> 
 
-                <button className="reply_btn" onClick = {() => this.handleReplyButton()}>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
+                <button className="reply_btn like_dislike_reply_container" onClick = {() => this.handleReplyButton()}>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
                 {
                     this.state.display_reply ? 
-                        <ReplyComment review = {review} handleReplyButton = {this.handleReplyButton}/> 
+                        <ReplyComment review = {review} handleReplyButton = {this.handleReplyButton} showReplyList = {this.showReplyList}/> 
                     : null 
                 }
-
-                <div>
-                    {review.nestedComments.map((comment,index) => 
-                        <NestedComment 
-                            key = {`${review.title} comment ${index}`}
-                            comment = {comment} 
-                            reviewOfComment = {review}
-                        />
-                    )}
-                </div>
+                <br/>
+                {nestedComments.length > 0 ? 
+                    <button className= "show_text_btn" onClick={() => this.setState({hidden_reply: !this.state.hidden_reply})}>
+                        {this.state.hidden_reply ? "▼  View" : "▲  Hide"} {nestedComments.length} {nestedComments.length > 1 ? "Replies" : "Reply"}
+                    </button>
+                : null }
+                {
+                    !this.state.hidden_reply ? 
+                        <div>
+                            {review.nestedComments.map((comment,index) => 
+                                <NestedComment 
+                                    key = {`${review.title} comment ${index}`}
+                                    comment = {comment} 
+                                    reviewOfComment = {review}
+                                />
+                            )}
+                        </div>
+                    : null 
+                }
 
             </div>
         )
