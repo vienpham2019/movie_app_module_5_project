@@ -93,7 +93,7 @@ class LikeDislike extends Component {
                     className="like_and_dislike_btn"
                     style={this.state.likeStatus ? {color: "rgb(53, 53, 155)"} : null}
                 >
-                    <i class="fa fa-thumbs-up"></i><label>{this.state.likes}</label>
+                    <i className="fa fa-thumbs-up"></i><label>{this.state.likes}</label>
                 </button>
                 <button 
                     onClick = {() => this.handleDislike(review)} 

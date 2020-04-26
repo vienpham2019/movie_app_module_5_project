@@ -2,14 +2,34 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+body{
+  background-image: url("https://images.wallpapersden.com/image/download/line-colorful-bright_4075_2048x1152.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-attachment:fixed;
+}
+
+.inline_block{
+  display: inline-block;
+  overflow: hidden;
+}
+
+h1{
+  text-align: center;
+  text-decoration: underline;
+  color: white
+}
+
 /* --Login and Signup Page -- */
 
 .login-signup-container{
+  background-image: linear-gradient(-60deg, rgb(95, 0, 0), rgb(4, 97, 179));
   position: relative;
   width: 60vw;
   margin: 0 auto;
   top: 10vh;
   border-radius: 10px;
+  color: white;
 }
 
 .login-signup-container h1 {
@@ -27,7 +47,7 @@
 .login-signup-container label{
   position: relative;
   font-size: 1.3em;
-  left: 10vw;
+  left: 8vw;
 }
 
 .login-signup-container button{
@@ -49,6 +69,110 @@
 
 .login-signup-container button:focus{
   width: 12vw;
+}
+
+/*--Upcoming Movie Container --*/
+.over_flow_text{
+  margin-top: 2vh;
+  overflow: hidden;
+  height: 7.6em;
+}
+
+.overflow-ellipsis {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 7.5em;
+}
+
+.slide-container{
+  background-image: linear-gradient(-60deg, rgb(39, 39, 39), rgb(58, 58, 177));
+  color: aliceblue;
+  width: 60vw;
+  height: 55vh;
+  border-radius: 10px;
+  margin: 2vh 0 10vh 5vw;
+}
+
+.top_movie_item_image{
+  border-radius: 5px;
+  width: 20vw;
+  height: 60vh;
+  cursor: pointer;
+  transition: ease-in-out 0.5s;
+}
+
+.top_movie_item_image img{
+  width: 20vw;
+  height: 60vh;
+}
+
+.top_movie_item_image:hover{
+  transform: rotate(5deg);
+}
+
+.top_movie_item_info{
+  position: relative;
+  left: 1vw;
+  width: 38vw;
+  height: 60vh;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.top_movie_item_info h1{
+  margin-top: 3vh;
+  font-size: 1.8em;
+  position: relative;
+  /* right: 2vw; */
+}
+
+/* --Top Movies Container -- */
+
+.top_movies_slide_container {
+  position: relative;
+  top: 7vh;
+  width: 95vw;
+  margin: 0 auto;
+  margin-bottom: 20vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.top_movies_slide_container .image_movie_card_container{
+  width: 20vw;
+  height: 50vh;
+  border-radius: 10px;
+  margin: 0 13vw;
+  cursor: pointer;
+  transition: ease-in-out 0.4s;
+  overflow: hidden;
+}
+
+.top_movies_slide_container img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.top_movies_slide_container .image_movie_card_container:hover{
+  padding: 1vh;
+}
+
+.top_movies_slide_container .ranks_label{
+  position: relative;
+  bottom: 3vh;
+  color: gold;
+  width: 4em;
+  height: 1.5em;
+  font-size: 1.5em;
+  background-color: black;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 /* --- Movie Comment Page --- */

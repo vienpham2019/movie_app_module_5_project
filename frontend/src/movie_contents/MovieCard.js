@@ -14,13 +14,20 @@ class MovieCard extends Component {
     render(){
         let movie = this.props.movie
         return(
-            <div onClick = {() => {
-                this.getReviews(movie.id)
-                this.props.history.push(`/movie/${movie.id}`)
-                this.props.setMovieId({movieId: movie.id, movieTitle: movie.title})
-                }}>
-                <h3>{movie.title}</h3>
+            <div 
+                className = "image_movie_card_container"
+                onClick = {() => {
+                    this.getReviews(movie.id)
+                    this.props.history.push(`/movie/${movie.id}`)
+                    this.props.setMovieId({movieId: movie.id, movieTitle: movie.title})
+                    }}
+            >
                 <img src={movie.poster_path} alt={`${movie.title} img`}/>
+                {this.props.rank ? 
+                    <div className="ranks_label">
+                        <label>&#10031; {movie.vote_average}</label>
+                    </div>
+                : null }
             </div>
         )
     }
