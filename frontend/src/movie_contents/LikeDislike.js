@@ -1,6 +1,5 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
-import swal from 'sweetalert'
 
 class LikeDislike extends Component {
     constructor(props){
@@ -18,7 +17,9 @@ class LikeDislike extends Component {
             let review = this.props.review
             this.setState({
                 likes: review.likes, 
-                dislikes: review.dislikes
+                dislikes: review.dislikes,
+                likeStatus: this.props.review.likeUsers.includes(this.props.userName),
+                dislikeStatus: this.props.review.dislikeUsers.includes(this.props.userName)
             })
         }
         if(prevProps.userName !== this.props.userName){
@@ -31,7 +32,7 @@ class LikeDislike extends Component {
 
     handleLike = (review) => {
         if(!this.props.userName){
-            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+            this.props.loginAlert()
         }
         
         let likeAmount = this.state.likeStatus ? 0 : 1
@@ -58,11 +59,11 @@ class LikeDislike extends Component {
 
     handleDislike = (review) => {
         if(!this.props.userName){
-            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+            this.props.loginAlert()
         }
 
-        let dislikeAmount = !this.state.dislikeStatus ? 1 : 0
-        let likeAmount = !this.state.likeStatus ? 0 : -1
+        let dislikeAmount = this.state.dislikeStatus ? 0 : 1
+        let likeAmount = this.state.likeStatus ? -1 : 0
 
         if(!this.state.dislikeStatus && this.props.userName){
             if(!this.props.reviewOfComment){

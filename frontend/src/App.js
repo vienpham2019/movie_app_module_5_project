@@ -6,13 +6,29 @@ import HomePage from './components/HomePage'
 import MovieShowPage from './components/MovieShowPage'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router , Route } from 'react-router-dom'
+import swal from 'sweetalert'
 
 class App extends Component {
 
     componentDidMount(){
+        localStorage.clear()
         fetch("http://localhost:3000/movie")
         .then(res => res.json())
         .then(data => this.props.setMovies(data))
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.userName !== prevProps.userName && this.props.userName){
+            swal({
+                title: "Login Successful",
+                text: `Wellcome back ${this.props.userName}`,
+                icon: "success",
+                buttons: {cancel: "Close"} 
+            })
+            setTimeout(() => {
+                swal.close()
+            }, 2000);
+        }
     }
     
     render() {
@@ -45,7 +61,8 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         movie: state.movie,
-        displayMovie: state.displayMovie
+        displayMovie: state.displayMovie,
+        userName: state.userName
     }
 }
 

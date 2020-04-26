@@ -2,6 +2,57 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+/* --Login and Signup Page -- */
+
+.login-signup-container{
+  position: relative;
+  width: 60vw;
+  margin: 0 auto;
+  top: 10vh;
+  border-radius: 10px;
+}
+
+.login-signup-container h1 {
+  text-align: center;
+  font-size: 2em;
+  word-spacing: 3px;
+}
+
+.login-signup-container input{
+  width: 45vw;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-signup-container label{
+  position: relative;
+  font-size: 1.3em;
+  left: 10vw;
+}
+
+.login-signup-container button{
+  position: relative;
+  width: 10vw;
+  margin: 1vh 0;
+  transition: ease-in-out 0.3s;
+}
+
+.login_signup_btn_container{
+  margin: 0 auto;
+  width: 15vw;
+  text-align: center;
+}
+
+.login-signup-container button:hover{
+  width: 12vw;
+}
+
+.login-signup-container button:focus{
+  width: 12vw;
+}
+
+/* --- Movie Comment Page --- */
+
 .comment_review_content{
   width: 50vw;
 }
@@ -18,6 +69,8 @@
   color: rgb(53, 53, 155);
   margin-left: 0.5vw;
 }
+
+/* --- Movie Like and Dislike Page --- */
 
 .show_text_btn{
   color: rgb(53, 53, 155);

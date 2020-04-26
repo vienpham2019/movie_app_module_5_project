@@ -2,7 +2,7 @@ import React , {Component} from 'react'
 import {connect} from 'react-redux'
 import ReviewCard from '../movie_contents/ReviewCard'
 import uploadReviewToDataBase from  '../reducer/uploadReviewToDatabase'
-import swal from 'sweetalert'
+import swal from '@sweetalert/with-react'
 
 
 class MovieShowPage extends  Component {
@@ -17,11 +17,26 @@ class MovieShowPage extends  Component {
     componentDidUpdate(prevProps){
         if(this.props.reviews !== prevProps.reviews){
             if(prevProps.reviews.length !== 0){
-                // uploadReviewToDataBase(this.props.reviews, this.props.reviewId)
-                uploadReviewToDataBase([], this.props.reviewId)
+                uploadReviewToDataBase(this.props.reviews, this.props.reviewId)
+                // uploadReviewToDataBase([], this.props.reviewId)
             }
         }
     }
+
+    loginAlert = () => 
+        swal({
+            title: "Sorry, We Couldn't Verify Your Account",
+            text: "Please Login Or SignUp !",
+            content: (
+                <button 
+                    className="btn btn-outline-info"
+                    onClick ={() => {
+                        this.props.history.push("/login")
+                        swal.close()
+                    }}
+                >Login Page</button>
+            )
+    })
     
     render(){
         let movie = this.props.movie
@@ -40,18 +55,21 @@ class MovieShowPage extends  Component {
                                 this.props.addReview(this.state.text)
                                 this.setState({text: ""})
                             }else{
-                                swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+                                this.loginAlert()
                             }
                         }}
                     >REVIEW</button>
-                    <div>
-                        {reviews.map((review,index) => 
-                            <ReviewCard 
-                                review = {review} 
-                                key = {`${review} review ${index}`}
-                            />
-                        )}
-                    </div>
+                    {reviews.length > 0 ? 
+                        <div>
+                            {reviews.map((review,index) => 
+                                <ReviewCard 
+                                    review = {review} 
+                                    key = {`${review} review ${index}`}
+                                    loginAlert = {this.loginAlert}
+                                />
+                            )}
+                        </div>
+                    : <h3>There aren't any reviews for this movie yet!</h3>}
                 </div>
             </div>
         )

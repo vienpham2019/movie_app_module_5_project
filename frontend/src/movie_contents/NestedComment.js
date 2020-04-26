@@ -10,7 +10,11 @@ class NestedComment extends Component {
             <div>
                 <h3>{comment.author}</h3>
                 <p>{comment.content}</p>
-                <LikeDislike review = {comment} reviewOfComment = {reviewOfComment}/>
+                <LikeDislike 
+                    review = {comment} 
+                    reviewOfComment = {reviewOfComment} 
+                    loginAlert = {this.props.loginAlert}
+                />
             </div>
         )
     }

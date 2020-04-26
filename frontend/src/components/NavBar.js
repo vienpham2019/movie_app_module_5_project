@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
-
+import swal from '@sweetalert/with-react';
 import {NavLink} from 'react-router-dom'
 
 class NavBar extends Component {
@@ -16,19 +16,29 @@ class NavBar extends Component {
                     <button onClick = {() => {
                         localStorage.clear()
                         this.props.setUserName(null)
+                        swal({
+                            icon: "success",
+                            buttons: {
+                                cancel: "Close"
+                            },
+                            content: (
+                                <div>
+                                    <h1>Message</h1>
+                                    <h5>You have been logged out successfully</h5>
+                                </div>
+                            )
+                        })
+                        setTimeout(() => {
+                            swal.close()
+                        }, 1500);
                     }}>Logout</button>
                 : 
-                    <button onClick = {
+                    <button onClick = {() => {
                         window.scrollTo(0, 0)
-                    }>
+                    }}>
                         <NavLink to = "/login">Login Page</NavLink>
                     </button>
                 }
-                <button onClick = {
-                    window.scrollTo(0, 0)
-                }>
-                    <NavLink to = "/signup">SignUp Page</NavLink>
-                </button>
             </div>
 
         )

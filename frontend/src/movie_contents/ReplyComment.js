@@ -16,14 +16,24 @@ class ReplyComment extends Component {
                 <button 
                     className={this.state.text !== "" ? "btn btn-primary" : "btn btn-secondary"}
                     onClick = {() => {
-                        this.props.showReplyList()
-                        this.props.handleReplyButton()
-                        this.props.addToNestedComment(this.state.text,review)
-                        this.setState({text: ""})
+                        if(this.props.userName){
+                            this.props.showReplyList()
+                            this.props.handleReplyButton()
+                            this.props.addToNestedComment(this.state.text,review)
+                            this.setState({text: ""})
+                        }else{
+                            this.props.loginAlert()
+                        }
                     }}
                 >REPLY</button>
             </div>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    return{
+        userName: state.userName 
     }
 }
 
@@ -33,4 +43,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(ReplyComment)
+export default connect(mapStateToProps, mapDispatchToProps)(ReplyComment)

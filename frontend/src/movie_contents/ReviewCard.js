@@ -1,5 +1,4 @@
 import React , {Component} from 'react' 
-import swal from 'sweetalert'
 import {connect} from 'react-redux'
 
 import NestedComment from './NestedComment'
@@ -39,9 +38,8 @@ class ReviewCard extends Component{
                 {review.content.length > 300 ? 
                     <button className="show_text_btn" onClick = {() => this.setState({hidden_text: !this.state.hidden_text})}>{this.state.hidden_text ? "Read more" : "Show less"}</button>
                     : null 
-                }
-
-                <LikeDislike review = {review} /> 
+                }<br/>
+                <LikeDislike review = {review} loginAlert = {this.props.loginAlert}/> 
 
                 <button 
                     className="reply_btn like_dislike_reply_container" 
@@ -49,11 +47,16 @@ class ReviewCard extends Component{
                         this.props.userName ? 
                             this.handleReplyButton() 
                         : 
-                            swal("Sorry, We Couldn't Verify Your Account","Please Login Or SignUp !")
+                            this.props.loginAlert()
                     }>{this.state.display_reply ? "CANCEL" : "REPLY" }</button>
                 {
                     this.state.display_reply ? 
-                        <ReplyComment review = {review} handleReplyButton = {this.handleReplyButton} showReplyList = {this.showReplyList}/> 
+                        <ReplyComment 
+                            review = {review} 
+                            handleReplyButton = {this.handleReplyButton} 
+                            showReplyList = {this.showReplyList}
+                            loginAlert = {this.props.loginAlert}
+                        /> 
                     : null 
                 }
                 <br/>
@@ -70,6 +73,7 @@ class ReviewCard extends Component{
                                     key = {`${review.title} comment ${index}`}
                                     comment = {comment} 
                                     reviewOfComment = {review}
+                                    loginAlert = {this.props.loginAlert}
                                 />
                             )}
                         </div>
