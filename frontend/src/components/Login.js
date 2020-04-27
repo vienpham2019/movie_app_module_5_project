@@ -1,5 +1,7 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class Login extends Component {
     constructor(){
@@ -25,6 +27,7 @@ class Login extends Component {
             if(data.errors){
                 this.setState({errors: data.errors})
             }else{
+                socket.emit('user connect' , {userName: data.username})
                 this.props.history.push("/")
                 this.props.setUserName(data.username)
                 localStorage.token = data.token

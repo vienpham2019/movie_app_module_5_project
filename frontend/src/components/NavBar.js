@@ -4,6 +4,7 @@ import swal from '@sweetalert/with-react';
 import {NavLink} from 'react-router-dom'
 
 class NavBar extends Component {
+
     render() {
         return(
             <div>
@@ -39,6 +40,11 @@ class NavBar extends Component {
                         <NavLink to = "/login">Login Page</NavLink>
                     </button>
                 }
+                <button onClick = {() => {
+                    window.scrollTo(0, 0)
+                }}>
+                    <NavLink to = "/user_profile">User Profile</NavLink>
+                </button>
             </div>
 
         )
@@ -47,7 +53,7 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
     return {
-        userName: state.userName
+        userName: state.movieReducer.userName
     }
 }
 

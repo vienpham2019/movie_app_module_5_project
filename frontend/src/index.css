@@ -223,3 +223,25 @@ h1{
   outline: none;
 }
 
+/* -- User profile page -- */
+.user_profile_container{
+  width: 100vw;
+  height: 95vh;
+}
+ 
+.user_info_container , .user_activity_container{
+  border: 1px solid white;
+  background-color: black;
+  color: white
+}
+
+.user_info_container{
+  width: 80vw;
+  height: 95vh;
+}
+
+.user_activity_container{
+  position: relative;
+  width: 20vw;
+  height: 95vh;
+}

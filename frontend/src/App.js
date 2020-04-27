@@ -4,9 +4,12 @@ import SignUp from './components/SignUp'
 import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import MovieShowPage from './components/MovieShowPage'
+import UserProfile from './components/UserProfile'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router , Route } from 'react-router-dom'
 import swal from 'sweetalert'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class App extends Component {
 
@@ -15,6 +18,10 @@ class App extends Component {
         fetch("http://localhost:3000/movie")
         .then(res => res.json())
         .then(data => this.props.setMovies(data))
+
+        socket.on('user login' , obj => {
+            this.props.addUserLogin(obj.userName)
+        })
     }
 
     componentDidUpdate(prevProps){
@@ -52,6 +59,10 @@ class App extends Component {
                     exact path = {`/movie/${this.props.movie.movieId}`} 
                     render = {(routerProps) => <MovieShowPage {...routerProps} movie = {this.props.displayMovie}/> }
                 />
+                <Route 
+                    exact path = '/user_profile'
+                    render = {(routerProps) => <UserProfile {...routerProps}/> }
+                />
                 </div>
             </Router>
         )
@@ -60,15 +71,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        movie: state.movie,
-        displayMovie: state.displayMovie,
-        userName: state.userName
+        movie: state.movieReducer.movie,
+        displayMovie: state.movieReducer.displayMovie,
+        userName: state.movieReducer.userName
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        setMovies: movies => dispatch({type: "SET_MOVIES", movies})
+        setMovies: movies => dispatch({type: "SET_MOVIES", movies}),
+        setUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName})
     }
 }
 

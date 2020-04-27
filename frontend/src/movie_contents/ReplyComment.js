@@ -33,7 +33,7 @@ class ReplyComment extends Component {
 
 const mapStateToProps = state => {
     return{
-        userName: state.userName 
+        userName: state.movieReducer.userName 
     }
 }
 

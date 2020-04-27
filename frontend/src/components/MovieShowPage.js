@@ -78,9 +78,9 @@ class MovieShowPage extends  Component {
 
 const mapStateToProps = state => {
     return {
-        reviews: state.showMovieReviews,
-        reviewId: state.showMovieReviewsId,
-        userName: state.userName
+        reviews: state.movieReducer.showMovieReviews,
+        reviewId: state.movieReducer.showMovieReviewsId,
+        userName: state.movieReducer.userName
     }
 }
 

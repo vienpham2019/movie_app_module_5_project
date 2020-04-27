@@ -9,9 +9,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"; 
 
 import App from './App'
-import movieReducer from './reducer/movieReducer'
+// import movieReducer from './reducer/movieReducer'
+import rootReducer from './reducer/rootReducer'
 
-const store = createStore(movieReducer)
+const store = createStore(rootReducer)
 
 ReactDOM.render(
   <Provider store = {store}>
