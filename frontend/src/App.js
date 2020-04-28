@@ -22,6 +22,10 @@ class App extends Component {
         socket.on('user login' , obj => {
             this.props.addUserLogin(obj.userName)
         })
+
+        socket.on('user logout' , obj => {
+            this.props.removeUserLogout(obj.userName)
+        })
     }
 
     componentDidUpdate(prevProps){
@@ -80,7 +84,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         setMovies: movies => dispatch({type: "SET_MOVIES", movies}),
-        setUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName})
+        addUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName}),
+        removeUserLogout: userName => dispatch({type: "REMOVE_USER_LOGOUT" , userName})
     }
 }
 

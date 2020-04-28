@@ -2,6 +2,8 @@ import React , {Component} from 'react'
 import {connect} from 'react-redux'
 import swal from '@sweetalert/with-react';
 import {NavLink} from 'react-router-dom'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class NavBar extends Component {
 
@@ -16,6 +18,7 @@ class NavBar extends Component {
                 {this.props.userName ? 
                     <button onClick = {() => {
                         localStorage.clear()
+                        socket.emit('user disconnect' , {userName: this.props.userName})
                         this.props.setUserName(null)
                         swal({
                             icon: "success",

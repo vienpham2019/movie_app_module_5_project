@@ -227,12 +227,13 @@ h1{
 .user_profile_container{
   width: 100vw;
   height: 95vh;
+
 }
  
 .user_info_container , .user_activity_container{
   border: 1px solid white;
   background-color: black;
-  color: white
+  color: white;
 }
 
 .user_info_container{
@@ -244,4 +245,65 @@ h1{
   position: relative;
   width: 20vw;
   height: 95vh;
+}
+
+/* --chat container -- */
+
+.chat_container_tank {
+  position: relative;
+  border: 1px solid white;
+  height: 1px;
+  top: 90vh
+}
+
+.chat_container{
+  display: block;
+  border: 1px solid rgb(0, 82, 129);
+  border-bottom: none;
+  border-radius: 10px;
+  width: 20em;
+  height: 20em;
+  position: relative;
+  bottom: 21em;
+  float: right;
+  z-index: 1;
+}
+
+.chat_container input , .chat_container button{
+  width: 20em;
+}
+
+.chat_container input{
+  border-radius: 5px;
+  height: 2em;
+  text-align: center;
+}
+
+.chat_container button{
+  position: relative;
+  bottom: 1.5em;
+}
+
+.chat_lists{
+  color: white;
+  width: 20em;
+  height: 16em;
+  overflow-y: scroll;
+  padding-right: 17px;
+  /* overflow: hidden; */
+}
+
+.chat_lists::-webkit-scrollbar-track{
+  border-radius: 2px;
+  /* background-color: rgb(255, 255, 255); */
+}
+
+.chat_lists::-webkit-scrollbar{
+  width: 8px;
+  /* background-color: rgb(0, 0, 0); */
+} 
+
+.chat_lists::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background-image: linear-gradient(-60deg, rgb(78, 0, 0), rgb(58, 58, 177));
 }

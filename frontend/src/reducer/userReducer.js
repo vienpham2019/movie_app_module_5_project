@@ -7,7 +7,13 @@ export default function userReducer(state = initial_state, action) {
         case "ADD_USER_LOGIN":
             return{
                 ...state,
-                login_users: [...state.login_users, action.userName]
+                login_users: [...state.login_users, {username: action.userName}]
+            }
+        
+        case "REMOVE_USER_LOGOUT":
+            return{
+                ...state,
+                login_users: state.login_users.filter(user => user.username !== action.userName)
             }
     
         default:
