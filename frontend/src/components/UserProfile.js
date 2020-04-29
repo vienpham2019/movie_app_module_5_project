@@ -22,13 +22,13 @@ class UserProfile extends Component {
             )
     })
 
-    // componentDidMount(){
-    //     if(!this.props.userName){
-    //         window.scrollTo(0, 0)
-    //         this.props.history.push('/')
-    //         this.loginAlert()
-    //     }
-    // }
+    componentDidMount(){
+        if(!this.props.userName){
+            window.scrollTo(0, 0)
+            this.props.history.push('/')
+            this.loginAlert()
+        }
+    }
 
     render() {
         return (

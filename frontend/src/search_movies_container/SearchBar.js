@@ -6,9 +6,10 @@ class SearchBar extends Component {
     render(){
         return(
             <div className = "search_movies_bar_container">
+                <label>&#x26B2;</label>
                 <input type="text" onChange={(e) => {
                     this.props.searchMovies(e.target.value)
-                }}/>
+                }} placeholder="Search..."/>
             </div>
         )
     }

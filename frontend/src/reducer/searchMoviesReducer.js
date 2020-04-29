@@ -20,6 +20,14 @@ export default function searchMoviesReducer(state = initial_state, action) {
                 ...state,
                 displayMovies
             }
+
+        case "FILTER_BY_GENRE": 
+            let filterRegEx = new RegExp(action.genre, "i")
+            let filterMoives = state.movies.filter(movie => movie.genre.match(filterRegEx))
+            return {
+                ...state,
+                displayMovies: filterMoives
+            }
     
         default:
             return state

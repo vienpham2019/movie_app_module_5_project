@@ -37,7 +37,7 @@ export default function movieReducer(state = initialState, action) {
         case "SET_USER_NAME":
             return{
                 ...state,
-                userName: action.user_obj.username,
+                userName: action.user_obj.userName,
                 favorate_movies: action.user_obj.favorate_movies
             }
         

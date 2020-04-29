@@ -16,6 +16,10 @@ class MovieShowPage extends  Component {
         }
     }
 
+    componentDidMount(){
+        window.scrollTo(0, 0)
+    }
+
     componentDidUpdate(prevProps){
         if(this.props.reviews !== prevProps.reviews){
             if(prevProps.reviews.length !== 0){

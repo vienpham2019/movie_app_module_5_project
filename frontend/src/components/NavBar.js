@@ -24,6 +24,14 @@ class NavBar extends Component {
                                 </button>
                             </li>
                             <li className="nav-item">
+                                <button
+                                    className="btn btn-light nav_btn"
+                                    onClick={() => window.scroll(0,0)}
+                                >
+                                    <NavLink to = "/movies">Movies</NavLink>
+                                </button>
+                            </li>
+                            <li className="nav-item">
                                 <button 
                                     className="btn btn-light nav_btn"
                                     onClick = {() => {
@@ -34,21 +42,13 @@ class NavBar extends Component {
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <button
-                                    className="btn btn-light nav_btn"
-                                    onClick={() => window.scroll(0,0)}
-                                >
-                                    <NavLink to = "/movies">Movies</NavLink>
-                                </button>
-                            </li>
-                            <li className="nav-item">
                                 {this.props.userName ? 
                                     <button 
                                         className="btn btn-light nav_btn"
                                         onClick = {() => {
                                             localStorage.clear()
                                             socket.emit('user disconnect' , {userName: this.props.userName})
-                                            this.props.setUserName(null)
+                                            this.props.setUserName({userName:  null , favorate_movies: []})
                                             swal({
                                                 icon: "success",
                                                 buttons: {
@@ -99,7 +99,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        setUserName: userName => dispatch({type: "SET_USER_NAME" , userName})
+        setUserName: user_obj => dispatch({type: "SET_USER_NAME" , user_obj})
     }
 }
 

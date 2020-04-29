@@ -29,7 +29,7 @@ class Login extends Component {
             }else{
                 socket.emit('user connect' , {userName: data.username})
                 this.props.history.push("/")
-                this.props.setUserName(data)
+                this.props.setUserName({userName: data.username, favorate_movies: data.favorate_movies})
                 localStorage.token = data.token
             }
         })

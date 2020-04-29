@@ -41,7 +41,11 @@ class HomePage extends Component {
                 </div>
             )
         }else{
-            return (<h1>Loading....</h1>)
+            return (
+                <div>
+                    {this.props.history.push('/login')}
+                </div>
+            )
         }
     }
     render(){
