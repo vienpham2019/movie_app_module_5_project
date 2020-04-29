@@ -324,26 +324,70 @@ h1{
 
 /* -- User profile page -- */
 .user_profile_container{
-  width: 100vw;
+  width: 99.2vw;
   height: 95vh;
-
+  overflow: hidden;
+  background-image: linear-gradient(to right , rgb(17, 17, 61) , rgb(2, 39, 2));
+  margin: 0;
 }
  
 .user_info_container , .user_activity_container{
-  border: 1px solid white;
-  background-color: black;
+  /* border: 1px solid white; */
+  /* background-color: black; */
   color: white;
 }
 
 .user_info_container{
+  position: relative;
+  top: -4vh;
   width: 80vw;
   height: 95vh;
+  overflow: visible;
 }
 
 .user_activity_container{
   position: relative;
-  width: 20vw;
+  left: 0.5vw;
+  width: 19vw;
   height: 95vh;
+}
+
+.user_profile_info{
+  height: 20vh;
+
+}
+
+.friends_list{
+  height: 65vh;
+  width: 17vw;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.chatIcon{
+  margin: 1vh 2vw 0 0;
+  border: 1px solid rgb(2, 2, 2);
+  border-radius: 10%;
+  width: 1.2em;
+  height: 1.2em;
+  float: right;
+  text-align: center;
+  font-size: 4em;
+  overflow: hidden;
+  background: linear-gradient(90deg, #30CFD0 0%, #771ee4 100%);
+  color: rgb(3, 6, 49);
+  cursor: pointer;
+  transition: ease-in-out 0.4s;
+}
+
+.chatIcon:hover{
+  border-radius: 25% ;
+}
+
+.chatIcon svg{
+  position: relative;
+  top: -0.3em;
 }
 
 /* -- user favorate container -- */
@@ -351,9 +395,11 @@ h1{
 .favorate_movies_container{
   position: relative;
   top: 2vh;
-  border: 1px solid white;
+  /* border: 1px solid white; */
+  background-color: rgba(55, 62, 68,0.5);
+  border-radius: 8px;
   width: 70vw;
-  height: 90vh;
+  height: 80vh;
   margin: 0 auto;
   z-index: 0;
   overflow: auto;
@@ -384,15 +430,16 @@ h1{
 
 .chat_container_tank {
   position: relative;
-  border: 1px solid white;
   height: 1px;
-  /* top: 90vh; */
+  width: 1px;
   z-index: 1;
+  float: right;
+  left: 12vw;
+  bottom: -2vh;
 }
 
 .chat_container{
   display: block;
-  border: 1px solid rgb(0, 82, 129);
   border-bottom: none;
   border-radius: 10px;
   width: 20em;
@@ -401,6 +448,8 @@ h1{
   bottom: 21em;
   float: right;
   z-index: 1;
+  background-color: white;
+  /* margin: 0 0.5vw; */
 }
 
 .chat_container input , .chat_container button{
@@ -408,21 +457,24 @@ h1{
 }
 
 .chat_container input{
-  border-radius: 5px;
+  border-radius: 0;
   height: 2em;
   text-align: center;
 }
 
 .chat_container button{
+  border-radius: 0 0 5px 5px;
   position: relative;
   bottom: 1.5em;
+  background-color: white;
 }
 
 .chat_lists{
-  color: white;
+  color: black;
   width: 20em;
   height: 16em;
   overflow-y: scroll;
+  overflow-x: hidden;
   padding-right: 17px;
   /* overflow: hidden; */
 }
@@ -442,6 +494,59 @@ h1{
   background-image: linear-gradient(-60deg, rgb(78, 0, 0), rgb(58, 58, 177));
 }
 
+/* chat item */
+
+.user_chat_message_container{
+  width: 20em;
+  display: inline-block
+}
+
+.message_user_profile_img,
+.message_content{
+  border: 1px solid black;
+  display: inline-block;
+  color: white;
+}
+
+.message_user_profile_img{
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  margin: 1vh;
+  overflow: hidden;
+}
+
+.message_user_profile_img img{
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.message_content{
+  max-width: 15em;
+  margin: 0.5em;
+  overflow-x: hidden;
+}
+
+.message_content p {
+  margin: 2px 0.5em;
+}
+
+.message_left {
+  border-radius: 10px 10px 10px 0 ;
+  background-color: rgb(4, 51, 105);
+}
+
+.message_right{
+  position: relative;
+  border-radius: 10px 10px 0 10px;
+  float: right;
+  right: 1em;
+  background-color: rgb(53, 121, 247);
+}
+
+.message_right p {
+  float: right;
+}
 
 /* --search movies -- */
 
@@ -571,7 +676,7 @@ h1{
 
 .dropdown-menu{
   width: 20vw;
-  height: 30vh;
+  max-height: 30vh;
   overflow: auto;
 }
 

@@ -25,10 +25,12 @@ io.on('connection', socket => {
     })
 
     socket.on('send message' , obj => {
+        console.log(`User ${obj.author} send message`)
         io.sockets.emit('recieve message' , obj) 
     })
 
     socket.on('typing' , userName => {
+        console.log('typing')
         socket.broadcast.emit('typing' , userName)
     })
 

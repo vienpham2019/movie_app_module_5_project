@@ -37,17 +37,30 @@ class ChatContainer extends Component {
 
     render(){
         let typing_userName = this.state.typing_userName
+        console.log(this.state.messages)
         // let chatRoom = this.props.chatRoom
         return(
             <div className="chat_container">
                 <div className="chat_lists" >
+                    {typing_userName ? <p><em>{typing_userName} is typing....</em></p> : null}
                     {this.state.messages.map(message => 
-                        message.author === this.props.userName ? 
-                            <p>{message.content} :<strong>{message.author}</strong></p>
+                        message.author !== this.props.userName ? 
+                            <div className="user_chat_message_container">
+                                <div className="message_user_profile_img">
+                                    <img src={message.profile_img ? message.profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                                </div>
+                                <div className="message_content message_left">
+                                    <p>{message.content}</p>
+                                </div>
+                            </div>
                         : 
-                            <p><strong>{message.author}</strong>: {message.content}</p>
+                            <div className="user_chat_message_container">
+                                <div className="message_content message_right">
+                                    <p>{message.content}</p>
+                                </div>
+                            </div>
+                        
                     )}
-                    {typing_userName ? <p>{typing_userName} is typing....</p> : null}
                 </div>
                 <input type="text" class="form-control" value={this.state.text} onChange={(e) => {
                     this.setState({text: e.target.value })

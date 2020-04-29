@@ -1,5 +1,6 @@
 let initial_state = {
     login_users: [] ,
+    displayChat: false
 }
 
 export default function userReducer(state = initial_state, action) {
@@ -14,6 +15,12 @@ export default function userReducer(state = initial_state, action) {
             return{
                 ...state,
                 login_users: state.login_users.filter(user => user.username !== action.userName)
+            }
+            
+        case "DISPLAY_CHAT": 
+            return {
+                ...state, 
+                displayChat: !state.displayChat
             }
     
         default:
