@@ -20,6 +20,13 @@ h1{
   color: white
 }
 
+/* -- navbar -- */
+.nav_btn{
+  color: rgb(0, 71, 138);
+  width: 10em;
+  margin: 0 1vw;
+}
+
 /* --Login and Signup Page -- */
 
 .login-signup-container{
@@ -175,9 +182,99 @@ h1{
   margin: 0 auto;
 }
 
+/* --Movie show header -- */
+
+.movie_show_header{
+  position: relative;
+  border-radius: 10px;
+  top: 2vh;
+  width: 90vw;
+  /* height: 50vh; */
+  margin: 0 auto;
+}
+
+.movie_show_header button{
+  position: relative;
+  float: right;
+  right: 10em;
+  top: -4em;
+}
+
+.favorate_btn{
+  border: 1px solid rgb(0, 118, 253);
+  background-color: rgb(0, 118, 253);
+  color: aliceblue;
+  width: 10vw;
+  height: 4vh;
+  box-shadow: none;
+}
+
+.movie_show_item_img , .movie_show_item_info{
+  display: inline-block;
+}
+
+.movie_show_item_img{
+  background-position: center;
+  overflow: hidden;
+  transform: skew(-10deg);
+  box-shadow: 10px 10px 30px rgb(32, 32, 32);
+  z-index: 1;
+}
+
+.movie_show_item_info{
+  font-size: 1.5em;
+  position: relative;
+  border-radius: 0 20px 20px 0;
+  top: -4vh;
+  left: -4vw;
+  width: 70vw;
+  height: 50vh;
+  background-image: linear-gradient(-60deg, rgb(29, 9, 9), rgb(135, 135, 252));
+  z-index: -1;
+  overflow: hidden;
+}
+
+.movie_show_item_info label , .movie_show_item_info p {
+  position: relative;
+  left: 10vw;
+  color: white;
+}
+
+.movie_writer{
+  color: white;
+  position: relative;
+  left: 13vw;
+  width: 56vw;
+}
+
+.movie_overview{
+  position: relative;
+  width: 56vw;
+}
+
+.movie_show_item_info strong{
+  color: black
+}
+
+.movie_show_item_img img{
+  width: 20vw;
+}
+
+/* -- Review Container -- */
+.review_container{
+  margin: 2vh 0 0 1vw;
+  background-color: white;
+  border-radius: 5px;
+  position: relative;
+  top: 4vh;
+  border: 1px solid white;
+  width: 50vw;
+}
+
 /* --- Movie Comment Page --- */
 
 .comment_review_content{
+  top: 2vh;
   width: 50vw;
 }
 
@@ -247,13 +344,48 @@ h1{
   height: 95vh;
 }
 
+/* -- user favorate container -- */
+
+.favorate_movies_container{
+  position: relative;
+  top: 2vh;
+  border: 1px solid white;
+  width: 70vw;
+  height: 90vh;
+  margin: 0 auto;
+  z-index: 0;
+  overflow: auto;
+}
+
+.favorate_movies_container .favorate_movie_img{
+  position: relative;
+  border-radius: 5px ;
+  width: 10vw;
+  height: 25vh;
+  margin: 1vw;
+  overflow: hidden;
+  display: inline-block;
+  border: 1px solid white;
+}
+
+.favorate_movies_container .favorate_movie_img img{
+  width: 10vw;
+  height: 25vh;
+  cursor: pointer;
+}
+
+.favorate_movie_img:hover{
+  bottom: 1vh;
+}
+
 /* --chat container -- */
 
 .chat_container_tank {
   position: relative;
   border: 1px solid white;
   height: 1px;
-  top: 90vh
+  /* top: 90vh; */
+  z-index: 1;
 }
 
 .chat_container{

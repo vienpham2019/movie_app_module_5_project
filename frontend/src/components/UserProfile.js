@@ -33,7 +33,7 @@ class UserProfile extends Component {
     render() {
         return (
            <div className="user_profile_container">
-                <UserInfoContainer />
+                <UserInfoContainer history={this.props.history}/>
                 <UserActivityContainer />
            </div> 
         )

@@ -29,7 +29,7 @@ class Login extends Component {
             }else{
                 socket.emit('user connect' , {userName: data.username})
                 this.props.history.push("/")
-                this.props.setUserName(data.username)
+                this.props.setUserName(data)
                 localStorage.token = data.token
             }
         })
@@ -72,7 +72,7 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
     return{
-        setUserName: userName => dispatch({type: "SET_USER_NAME" , userName})
+        setUserName: user_obj => dispatch({type: "SET_USER_NAME" , user_obj})
     }
 }
 

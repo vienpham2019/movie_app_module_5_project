@@ -1,8 +1,10 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
-import ReviewCard from '../movie_contents/ReviewCard'
 import uploadReviewToDataBase from  '../reducer/uploadReviewToDatabase'
 import swal from '@sweetalert/with-react'
+
+import ReviewCard from '../movie_contents/ReviewCard'
+import MovieShowHeader from '../movie_activity/MovieShowHeader'
 
 
 class MovieShowPage extends  Component {
@@ -39,14 +41,12 @@ class MovieShowPage extends  Component {
     })
     
     render(){
-        let movie = this.props.movie
+        // let movie = this.props.movie
         let reviews = this.props.reviews
         return (
             <div>
-                <h1>{movie.title}</h1>
-                <h3>Release Date: {movie.release_date}</h3>
-                <img src={movie.poster_path} alt={`${movie.title} img`}/><br/>
-                <div>
+                <MovieShowHeader loginAlert= {this.loginAlert}/> 
+                <div className="review_container">
                     <input type="text" onChange={(e) => this.setState({text: e.target.value})} value={this.state.text}/>
                     <button 
                         className={this.state.text !== "" ? "btn btn-primary" : "btn btn-secondary"}

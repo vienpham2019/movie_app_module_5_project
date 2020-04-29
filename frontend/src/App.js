@@ -1,10 +1,13 @@
 import React , {Component} from 'react'
+
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import NavBar from './components/NavBar'
 import HomePage from './components/HomePage'
 import MovieShowPage from './components/MovieShowPage'
 import UserProfile from './components/UserProfile'
+import Movies from './components/Movies'
+
 import {connect} from 'react-redux'
 import {BrowserRouter as Router , Route } from 'react-router-dom'
 import swal from 'sweetalert'
@@ -66,6 +69,10 @@ class App extends Component {
                 <Route 
                     exact path = '/user_profile'
                     render = {(routerProps) => <UserProfile {...routerProps}/> }
+                />
+                <Route 
+                    exact path = '/movies'
+                    render = {(routerProps) => <Movies {...routerProps}/> }
                 />
                 </div>
             </Router>

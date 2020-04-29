@@ -1,5 +1,5 @@
 let initial_state = {
-    login_users: [] 
+    login_users: [] ,
 }
 
 export default function userReducer(state = initial_state, action) {
