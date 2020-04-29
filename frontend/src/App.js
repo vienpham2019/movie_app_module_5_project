@@ -20,7 +20,10 @@ class App extends Component {
         localStorage.clear()
         fetch("http://localhost:3000/movie")
         .then(res => res.json())
-        .then(data => this.props.setMovies(data))
+        .then(data => {
+            this.props.setMovies(data)
+            this.props.setDisplayMovie(data)
+        })
 
         socket.on('user login' , obj => {
             this.props.addUserLogin(obj.userName)
@@ -92,7 +95,8 @@ const mapDispatchToProps = dispatch => {
     return{
         setMovies: movies => dispatch({type: "SET_MOVIES", movies}),
         addUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName}),
-        removeUserLogout: userName => dispatch({type: "REMOVE_USER_LOGOUT" , userName})
+        removeUserLogout: userName => dispatch({type: "REMOVE_USER_LOGOUT" , userName}),
+        setDisplayMovie: movies => dispatch({type: "SET_SEARCH_MOVIES", movies})
     }
 }
 
