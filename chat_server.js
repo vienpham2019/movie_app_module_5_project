@@ -33,25 +33,6 @@ io.on('connection', socket => {
         console.log('typing')
         socket.broadcast.emit('typing' , userName)
     })
-
-    // socket.on('join chat room' , obj => {
-    //     console.log('join chat room')
-    //     socket.join(obj.chatroomName)
-    // })
-
-    // socket.on('send room info to user' , obj => {
-    //     console.log('send to chat room user')
-    //     io.sockets.emit('user join chat room', obj)
-    // }) 
-
-    // socket.on('send message to chat room' , obj => {
-    //     console.log(`send to chat room ${obj.chatroomName} message`)
-    //     io.sockets.to(obj.chatroomName).emit('recieve message', obj)
-    // })
-
-    // socket.on('disconnect' , obj => {
-    //     console.log(`User ${obj.username} disconnect`)
-    // })
 })
 
 server.listen(port, () => console.log(`Listening on port ${port}`))

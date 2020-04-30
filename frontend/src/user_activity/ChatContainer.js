@@ -12,20 +12,27 @@ class ChatContainer extends Component {
             messages: [],
             typing_userName: null 
         }
+
+        this.mesRef = React.createRef();
     }
 
+    scrollToBottom = () => {
+        this.mesRef.current.scrollTop = 256;
+	};
+
     sendMessage = () => {
-        // socket.emit('send message to chat room' , {chatroomName,author: this.props.userName, content: this.state.text})
         socket.emit('send message' , {author: this.props.userName, content: this.state.text})
     }
 
     componentDidMount(){
+        this.scrollToBottom();
         socket.on('recieve message' , obj => {
             this.setState({
-                messages: [obj,...this.state.messages], 
+                messages: [...this.state.messages,obj], 
                 text: "",
                 typing_userName: null 
             })
+            this.scrollToBottom();
         })
 
         socket.on('typing' , userName => {
@@ -41,8 +48,10 @@ class ChatContainer extends Component {
         // let chatRoom = this.props.chatRoom
         return(
             <div className="chat_container">
-                <div className="chat_lists" >
-                    {typing_userName ? <p><em>{typing_userName} is typing....</em></p> : null}
+                <div className="chat_header">
+
+                </div>
+                <div className="chat_lists" ref={this.mesRef}>
                     {this.state.messages.map(message => 
                         message.author !== this.props.userName ? 
                             <div className="user_chat_message_container">
@@ -58,15 +67,33 @@ class ChatContainer extends Component {
                                 <div className="message_content message_right">
                                     <p>{message.content}</p>
                                 </div>
-                            </div>
-                        
+                            </div>                     
                     )}
+                    {typing_userName ? <p><em>{typing_userName} is typing....</em></p> : null}
                 </div>
-                <input type="text" class="form-control" value={this.state.text} onChange={(e) => {
-                    this.setState({text: e.target.value })
-                    socket.emit('typing' , this.props.userName)
-                }}/><br/>
-                <button className="btn btn-outline-info" onClick={() => this.sendMessage() }>Send</button>
+                <div className="input-group mb-3 chat_footer">
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Type your message..."
+                        value={this.state.text}
+                        onChange={(e) => {
+                            this.setState({text: e.target.value })
+                            socket.emit('typing' , this.props.userName)
+                        }}
+                    />
+                    <div className="input-group-append">
+                        <button 
+                            className="btn btn-outline-secondary" 
+                            type="button" 
+                            onClick={() => this.sendMessage() }
+                        >
+                        <svg class="bi bi-cursor-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 01.103.557L8.528 15.467a.5.5 0 01-.917-.007L5.57 10.694.803 8.652a.5.5 0 01-.006-.916l12.728-5.657a.5.5 0 01.556.103z" clip-rule="evenodd"/>
+                        </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         )
     }
