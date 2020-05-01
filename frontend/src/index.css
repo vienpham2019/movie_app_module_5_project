@@ -3,11 +3,11 @@
 }
 
 body{
-  /* background-image: url("https://images.wallpapersden.com/image/download/line-colorful-bright_4075_2048x1152.jpg");
+  background-image: url("https://images.wallpapersden.com/image/download/line-colorful-bright_4075_2048x1152.jpg");
   background-repeat: no-repeat;
   background-size: auto;
-  background-attachment:fixed; */
-  background-color: black;
+  background-attachment:fixed;
+  /* background-color: black; */
 }
 
 .inline_block{
@@ -186,9 +186,8 @@ h1{
 /* --Movie show page -- */
 
 .movie_show_page_container{
-  width: 99vw;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  width: 99.2vw;
+  overflow: hidden;
 }
 
 /* --Movie show header -- */
@@ -199,8 +198,20 @@ h1{
   top: 2vh;
   width: 90vw;
   max-height: 70vh;
-  /* height: 50vh; */
   margin: 0 auto;
+}
+
+.movie_show_item_title{
+  position: relative;
+  left: 8vw;
+  width: 60vw;
+  margin-bottom: 2vh;
+}
+
+.movie_show_item_title h4{
+  float: right;
+  color: rgb(253, 223, 52);
+  font-size: 1.5em;
 }
 
 .movie_show_header button{
@@ -225,7 +236,6 @@ h1{
 
 .movie_show_item_img{
   background-position: center;
-  /* overflow: hidden; */
   transform: skew(-10deg);
   box-shadow: 20px 20px 30px 1px rgb(32, 21, 21);
   z-index: 1;
@@ -280,7 +290,7 @@ h1{
   min-height: 100vh;
   overflow-x: hidden;
   text-align: center;
-  background-image: linear-gradient(to bottom, rgb(52, 52, 105), rgb(11, 11, 24));
+  background-image: linear-gradient(to bottom, rgb(52, 52, 105), rgb(58, 1, 97));
   padding: 1vw;
   color: black;
 }
@@ -299,25 +309,25 @@ h1{
 
 .movie_show_info_producer,
 .movie_show_info_detail{
-  /* border: 1px solid white; */
-  width: 45vw;
-  min-height: 20vh;
+  min-height: 50vh;
   border-radius: 3px;
   display: inline-block;
   margin: 3vh 2vh;
   overflow-x: hidden;
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 0 12px rgb(255, 255, 255);
   padding: 1vw;
   vertical-align: middle;
 }
 
 .movie_show_info_producer{
-  top: 50%
+  top: 50%; 
+  width: 35vw;
+}
+
+.movie_show_info_detail{
+  width: 55vw
 }
 
 .movie_show_info_producer .movie_show_info_producer_img{
-  /* border: 1px solid black; */
   color: black;
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -340,21 +350,99 @@ h1{
   height: 6vh;
 }
 
-.movie_show_info_detail_item{
-  border-radius: 3px;
-  color: white;
-  background-image: linear-gradient(to bottom, rgb(62, 62, 77), rgb(69, 69, 168));
-  padding: 0.5em;
-  box-shadow: 5px 5px 12px rgb(0, 0, 0);
-  margin: 1vw 0;
+.movie_show_info_detail_wrapper{
+  display: grid;
+  grid-auto-rows: minmax(10px, auto);
+  grid-gap: 2em;
 }
 
-.movie_show_info_detail_item label {
+.movie_show_info_detail_item_one{
   position: relative;
-  color: rgb(26, 26, 110);
+  grid-row: 1;
+  grid-column: 2/6;
+  left: -3vw;
+}
+
+.movie_show_info_detail_item_two{
+  grid-column: 1/5;
+  grid-row: 2;
+}
+
+.movie_show_info_detail_item_three{
+  grid-column: 5;
+  grid-row: 2/4;
+  width: 8vw;
+}
+
+.movie_show_info_detail_item_four{
+  position: relative;
+  grid-column: 1/4;
+  grid-row: 3;
+  max-width: 22vw;
+  left: 2vw;
+}
+
+.movie_show_info_detail_item_five{
+  grid-column: 4;
+  grid-row: 3;
+}
+
+.movie_show_info_detail_item_six{
+  grid-column: 1/5;
+  grid-row: 4;
+}
+
+.movie_show_info_detail_item_seven{
+  grid-column: 5;
+  grid-row: 4;
+}
+
+.movie_show_info_detail_wrapper > div {
+  color: white;
+  background-image: linear-gradient(to bottom, rgb(164, 175, 235), rgb(1, 1, 73));
+  border-radius: 4px;
+  padding: 0.5em;
+  box-shadow: 5px 5px 12px rgb(0, 0, 0);
+}
+
+.movie_show_info_detail_wrapper > div label {
+  position: relative;
+  color: rgb(62, 62, 161);
   font-size: 1.1em;
   float: left;
   left: 1vw;
+}
+
+.movie_show_info_detail_wrapper > div p {
+  float: left;
+}
+
+/* movie info videos */
+
+.movie_info_videos_container{
+  margin-top: 2vh;
+  position: relative;
+  padding: 1vh;
+  width: 100vw;
+  left: -1vw;
+  /* background-image: linear-gradient(to bottom, rgb(52, 52, 105), rgb(11, 11, 24)); */
+}
+
+.movie_show_info_videos{
+  max-height: 90vh;
+  max-width: 90vw;
+  margin: 10vh auto;
+}
+
+.movie_info_video{
+  border: 1px solid white;
+  display: inline-block;
+  height: 90vh;
+}
+
+.movie_info_video iframe {
+  width: 100%;
+  height: 100%;
 }
 
 /* -- Review Container -- */
@@ -366,7 +454,7 @@ h1{
   top: 4vh;
   border: 1px solid white;
   width: 90vw;
-  height: 85vh;
+  height: 80vh;
   overflow: auto;
 }
 

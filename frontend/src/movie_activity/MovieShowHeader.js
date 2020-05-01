@@ -43,10 +43,12 @@ class MovieShowHeader extends Component {
                     <img src={movie.poster_path} alt={`${movie.title}img`}/>
                 </div>
                 <div className="movie_show_item_info">
-                    <h1>{movie.title} 
-                        <small>({movie.release_date.split("-")[0]})</small>
-                        <label>&#10031; {movie.vote_average}</label>
-                    </h1>
+                    <div className="movie_show_item_title">
+                        <h1>{movie.title} 
+                            <small>({movie.release_date.split("-")[0]})</small>
+                        </h1>
+                        <h4>&#10031; {movie.vote_average}</h4>
+                    </div>
                     <label><strong>RELEASE DATE:</strong> {movie.release_date}</label><br/>
                     <label><strong>DIRECTOR:</strong> {movie.director}</label><br/>
                     <label><strong>WRITERS:</strong></label><br/>
