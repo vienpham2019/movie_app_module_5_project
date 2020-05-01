@@ -12,9 +12,14 @@ class ReplyComment extends Component {
         let review = this.props.review 
         return (
             <div className="reply_input">
-                <input type="text" onChange = {(e) => this.setState({text: e.target.value})} value = {this.state.text}/>
+                <input 
+                    type="text" 
+                    onChange = {(e) => this.setState({text: e.target.value})} 
+                    value = {this.state.text}
+                    placeholder="Add your comment ..."
+                />
                 <button 
-                    className={this.state.text !== "" ? "btn btn-primary" : "btn btn-secondary"}
+                    className={this.state.text !== "" ? "btn btn-outline-primary" : "btn btn-outline-info"}
                     onClick = {() => {
                         if(this.props.userName){
                             this.props.showReplyList()

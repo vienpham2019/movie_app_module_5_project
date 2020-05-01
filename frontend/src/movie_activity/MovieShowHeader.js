@@ -50,12 +50,12 @@ class MovieShowHeader extends Component {
                     <label><strong>RELEASE DATE:</strong> {movie.release_date}</label><br/>
                     <label><strong>DIRECTOR:</strong> {movie.director}</label><br/>
                     <label><strong>WRITERS:</strong></label><br/>
-                    <div className="movie_writer">
+                    <div className="movie_writer" style={{overflow: "hidden", textOverflow: "ellipsis" , display: "-webkit-box" , WebkitLineClamp: "3" , WebkitBoxOrient: "vertical"}}>
                         {movie.writer}
                     </div>
-                    <br/>
-                    <div className="movie_overview">
-                        <p>{movie.overview}</p>
+                    <label><strong>ACTORS:</strong></label><br/>
+                    <div className="movie_writer" style={{overflow: "hidden", textOverflow: "ellipsis" , display: "-webkit-box" , WebkitLineClamp: "3" , WebkitBoxOrient: "vertical"}}>
+                        {movie.actors}
                     </div>
                 </div>
                 <button 
