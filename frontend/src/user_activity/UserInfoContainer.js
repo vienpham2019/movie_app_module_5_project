@@ -29,6 +29,7 @@ class UserInfoContainer extends Component{
         let favorate_movies = this.props.favorate_movies
         return(
             <div className="user_info_container inline_block">
+                <h1>My Collection</h1>
                 <div className="favorate_movies_container">
                     {favorate_movies.map(movie => 
                         <div className="favorate_movie_img">

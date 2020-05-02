@@ -662,6 +662,28 @@ h1{
   background-image: linear-gradient(to right , rgb(17, 17, 61) , rgb(2, 39, 2));
   margin: 0;
 }
+
+.user_profile_info{
+  width: 18vw;
+  position: relative;
+}
+
+.user_profile_info_content {
+  position: relative;
+  top: 4vh;
+  display: flex;
+}
+
+.user_profile_info_content  img {
+  width: 5em; 
+  height: 5em;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.user_profile_info_content  h3 {
+  margin: 2vh 1vw;
+}
  
 .user_info_container , .user_activity_container{
   color: white;

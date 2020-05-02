@@ -15,7 +15,14 @@ class UserActivityContainer extends Component{
 
         return(
             <div className="user_activity_container inline_block">
-                <div className="user_profile_info"></div>
+                <div className="user_profile_info">
+                    {this.props.userName ? 
+                        <div className="user_profile_info_content">
+                            <img src={this.props.userProfile ? this.props.userProfile : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                            <h3>{this.props.userName}</h3>
+                        </div>
+                    : null }
+                </div>
                 <div className="friends_list">
                     {login_users.map(user => 
                         <ul>
