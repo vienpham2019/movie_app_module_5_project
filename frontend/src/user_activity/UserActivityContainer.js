@@ -1,5 +1,6 @@
 import React , {Component} from 'react'
 import {connect} from 'react-redux'
+import UserEditForm from '../user_activity/UserEditForm'
 // import socketIOClient from 'socket.io-client'
 // const socket = socketIOClient("http://localhost:4000")
 
@@ -12,14 +13,18 @@ class UserActivityContainer extends Component{
 
     render(){
         let login_users = this.props.login_users.filter(user => user.username !== this.props.userName)
-
+        let current_user = this.props.current_user 
         return(
             <div className="user_activity_container inline_block">
+                {this.props.userName ? 
+                    <UserEditForm /> 
+                : null }
                 <div className="user_profile_info">
                     {this.props.userName ? 
                         <div className="user_profile_info_content">
-                            <img src={this.props.userProfile ? this.props.userProfile : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                            <img src={current_user.user_profile_img ? current_user.user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
                             <h3>{this.props.userName}</h3>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">&#9881;</button>
                         </div>
                     : null }
                 </div>
@@ -45,7 +50,8 @@ class UserActivityContainer extends Component{
 const mapStateToProps = state => {
     return {
         login_users: state.userReducer.login_users,
-        userName: state.movieReducer.userName 
+        userName: state.movieReducer.userName,
+        current_user: state.userReducer.current_user
     }
 }
 

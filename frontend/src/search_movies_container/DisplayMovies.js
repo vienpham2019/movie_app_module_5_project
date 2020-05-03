@@ -1,5 +1,5 @@
 import React , {Component} from 'react' 
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 
 import MovieCard from '../movie_contents/MovieCard'
 
@@ -98,10 +98,11 @@ class DisplayMovies extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        displayMovies: state.searchMoviesReducer.displayMovies
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         displayMovies: state.searchMoviesReducer.displayMovies
+//     }
+// }
 
-export default connect(mapStateToProps)(DisplayMovies)
+// export default connect(mapStateToProps)(DisplayMovies)
+export default DisplayMovies

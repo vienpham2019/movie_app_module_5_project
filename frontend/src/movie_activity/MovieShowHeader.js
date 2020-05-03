@@ -36,7 +36,7 @@ class MovieShowHeader extends Component {
 
     render(){
         let movie = this.props.movie
-        let favorate_movies = this.props.favorate_movies
+        let favorate_movies = this.props.current_user ? this.props.current_user.favorate_movies : []
         return(
             <div className="movie_show_header" >
                 <div className="movie_show_item_img">
@@ -82,9 +82,9 @@ class MovieShowHeader extends Component {
 
 const mapStateToProps = state => {
     return {
-        favorate_movies: state.movieReducer.favorate_movies,
         movie: state.movieReducer.displayMovie,
-        userName: state.movieReducer.userName
+        userName: state.movieReducer.userName,
+        current_user: state.userReducer.current_user
     }
 }
 

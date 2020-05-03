@@ -9,7 +9,6 @@ let initialState = {
     showMovieReviewsId: null, 
     userName: null, 
     makeLikeAction: [],
-    favorate_movies: []
 }
 
 export default function movieReducer(state = initialState, action) {
@@ -37,24 +36,9 @@ export default function movieReducer(state = initialState, action) {
         case "SET_USER_NAME":
             return{
                 ...state,
-                userName: action.user_obj.userName,
-                favorate_movies: action.user_obj.favorate_movies
+                userName: action.user_obj.userName
             }
         
-        case "ADD_TO_FAVORATE_MOVIE":
-            let add_favorate_movies = [action.favorate_movie,...state.favorate_movies]
-            return{
-                ...state,
-                favorate_movies: add_favorate_movies
-            }
-            
-        case "REMOVE_FROM_FAVORATE_MOVIE":
-            let remove_favorate_movies = state.favorate_movies.filter(movie => movie !== action.favorate_movie)
-            return{
-                ...state,
-                favorate_movies: remove_favorate_movies
-            }
-
         case "ADD_REVIEW":
             let add_review_obj = add_review(state.userName, action.review , state.showMovieReviews)
             

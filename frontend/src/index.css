@@ -378,7 +378,7 @@ h1{
   position: relative;
   grid-column: 1/4;
   grid-row: 3;
-  max-width: 22vw;
+  max-width: 19vw;
   left: 2vw;
 }
 
@@ -656,9 +656,10 @@ h1{
 
 /* -- User profile page -- */
 .user_profile_container{
-  width: 99.2vw;
-  height: 95vh;
-  overflow: hidden;
+  width: 100vw;
+  height: 94vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-image: linear-gradient(to right , rgb(17, 17, 61) , rgb(2, 39, 2));
   margin: 0;
 }
@@ -683,6 +684,10 @@ h1{
 
 .user_profile_info_content  h3 {
   margin: 2vh 1vw;
+}
+
+.user_profile_info_content  label{
+  font-size: 2.5em;
 }
  
 .user_info_container , .user_activity_container{
@@ -753,7 +758,16 @@ h1{
   height: 80vh;
   margin: 0 auto;
   z-index: 0;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.favorate_movies_container .search_display_movies_container{
+  position: relative;
+  top: 0;
+  margin-top: 2vh;
+  width: 68vw;
+  height: 82vh;
+  overflow-x: hidden;
 }
 
 .favorate_movies_container .favorate_movie_img{

@@ -48,7 +48,8 @@ class NavBar extends Component {
                                         onClick = {() => {
                                             localStorage.clear()
                                             socket.emit('user disconnect' , {userName: this.props.userName})
-                                            this.props.setUserName({userName:  null , favorate_movies: []})
+                                            this.props.setUserName({userName:  null})
+                                            this.props.setCurrentUser(null)
                                             swal({
                                                 icon: "success",
                                                 buttons: {
@@ -99,7 +100,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        setUserName: user_obj => dispatch({type: "SET_USER_NAME" , user_obj})
+        setUserName: user_obj => dispatch({type: "SET_USER_NAME" , user_obj}),
+        setCurrentUser: user => dispatch({type: "SET_CURRENT_USER" , user})
     }
 }
 
