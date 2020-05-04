@@ -1,7 +1,10 @@
 let initial_state = {
     login_users: [] ,
     current_user: null, 
-    displayChat: false
+    displayChat: false,
+    user_lists: [],
+    display_user_lists: [],
+    view_friend_profile: null
 }
 
 export default function userReducer(state = initial_state, action) {
@@ -15,13 +18,13 @@ export default function userReducer(state = initial_state, action) {
         case "ADD_USER_LOGIN":
             return{
                 ...state,
-                login_users: [...state.login_users, {username: action.userName}]
+                login_users: [...state.login_users, action.userName]
             }
         
         case "REMOVE_USER_LOGOUT":
             return{
                 ...state,
-                login_users: state.login_users.filter(user => user.username !== action.userName)
+                login_users: state.login_users.filter(username => username !== action.userName)
             }
             
         case "DISPLAY_CHAT": 
@@ -49,6 +52,40 @@ export default function userReducer(state = initial_state, action) {
             return {
                 ...state,
                 current_user: {...state.current_user, user_profile_img}, 
+            }
+
+        case "ADD_TO_USER_LISTS": 
+            return {
+                ...state, 
+                user_lists: action.userLists,
+                display_user_lists: action.userLists
+            }
+
+        case "SEARCH_USER_NAME": 
+            let usernameRegx = new RegExp(action.username, "i")
+            let display_user_lists = state.user_lists.filter(user => user.username.match(usernameRegx))
+            console.log(display_user_lists)
+            return {
+                ...state, 
+                display_user_lists
+            }
+
+        case "ADDFRIEND": 
+            return {
+                ...state,
+                current_user: {...state.current_user, friends_list: [action.friendname,...state.current_user.friends_list]}
+            }
+        
+        case "UNFRIEND": 
+            return {
+                ...state,
+                current_user: {...state.current_user, friends_list: state.current_user.friends_list.filter(friendname => friendname !== action.friendname)}
+            }
+
+        case "SET_VIEW__obj_PROFILE": 
+            return {
+                ...state,
+                view_friend_profile: action.friend_obj
             }
 
         default:

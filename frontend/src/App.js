@@ -7,6 +7,7 @@ import HomePage from './components/HomePage'
 import MovieShowPage from './components/MovieShowPage'
 import UserProfile from './components/UserProfile'
 import Movies from './components/Movies'
+import FriendProfile from './components/FriendProfile'
 
 import {connect} from 'react-redux'
 import {BrowserRouter as Router , Route } from 'react-router-dom'
@@ -23,6 +24,13 @@ class App extends Component {
         .then(data => {
             this.props.setMovies(data)
             this.props.setDisplayMovie(data)
+        })
+
+        fetch("http://localhost:3000/users")
+        .then(res => res.json())
+        .then(data => {
+            this.props.addToUserLists(data)
+            console.log(data)
         })
 
         socket.on('user login' , obj => {
@@ -77,6 +85,10 @@ class App extends Component {
                     exact path = '/movies'
                     render = {(routerProps) => <Movies {...routerProps}/> }
                 />
+                <Route 
+                    exact path = '/friend_profile'
+                    render = {(routerProps) => <FriendProfile {...routerProps}/> }
+                />
                 </div>
             </Router>
         )
@@ -96,7 +108,8 @@ const mapDispatchToProps = dispatch => {
         setMovies: movies => dispatch({type: "SET_MOVIES", movies}),
         addUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName}),
         removeUserLogout: userName => dispatch({type: "REMOVE_USER_LOGOUT" , userName}),
-        setDisplayMovie: movies => dispatch({type: "SET_SEARCH_MOVIES", movies})
+        setDisplayMovie: movies => dispatch({type: "SET_SEARCH_MOVIES", movies}),
+        addToUserLists: userLists => dispatch({type: "ADD_TO_USER_LISTS", userLists})
     }
 }
 

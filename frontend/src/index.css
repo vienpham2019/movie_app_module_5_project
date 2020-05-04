@@ -673,6 +673,7 @@ h1{
   position: relative;
   top: 4vh;
   display: flex;
+  height: 12vh;
 }
 
 .user_profile_info_content  img {
@@ -684,10 +685,34 @@ h1{
 
 .user_profile_info_content  h3 {
   margin: 2vh 1vw;
+  text-transform: capitalize;
+  text-shadow: 10px 15px 6px black;
 }
 
 .user_profile_info_content  label{
   font-size: 2.5em;
+}
+
+.setup_and_search_btn{
+  margin: 1vh 0;
+}
+
+.setup_and_search_btn button{
+  width: 10em;
+  height: 3em;
+  margin: 0.5em;
+}
+
+.setup_and_search_btn button:last-child{
+  width: 3em;
+}
+
+.setup_and_search_btn button:last-child label{
+  font-size: 3em;
+  position: relative;
+  bottom: 0.4em;
+  left: -0.05em;
+  cursor: pointer;
 }
  
 .user_info_container , .user_activity_container{
@@ -715,14 +740,16 @@ h1{
 }
 
 .friends_list{
-  height: 65vh;
+  height: 75vh;
   width: 17vw;
   border: 1px solid white;
   border-radius: 5px;
-  margin: 0 auto;
+  margin: 0 1vw 0 0;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-.chatIcon{
+/* .chatIcon{
   margin: 1vh 2vw 0 0;
   border: 1px solid rgb(2, 2, 2);
   border-radius: 10%;
@@ -745,7 +772,7 @@ h1{
 .chatIcon svg{
   position: relative;
   top: -0.3em;
-}
+} */
 
 /* -- user favorate container -- */
 
@@ -789,6 +816,52 @@ h1{
 
 .favorate_movie_img:hover{
   bottom: 1vh;
+}
+
+/* user friend list info */
+
+.friend_user_info{
+  width: 15vw;
+  height: 6vw;
+  overflow: hidden;
+  margin: 1vh;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+.friend_user_info label {
+  text-transform: capitalize;
+}
+
+.friend_user_info img{
+  width: 3em;
+  height: 3em;
+  border-radius: 5px;
+}
+
+.friend_user_info_btn{
+  margin-top: 1vh;
+}
+
+.friend_user_info_btn button{
+  margin: 0 5px;
+}
+
+.friend_user_info_btn button:last-child{
+  margin-left: 1vw;
+  width: 2em;
+  height: 2em;
+  border-radius: 5px;
+  background-color: transparent;
+  border-color: teal;
+  color: teal;
+  font-size: 1.2em;
+}
+
+/* --user modal--- */
+
+.modal{
+  color: black;
 }
 
 /* --chat container -- */
@@ -1112,4 +1185,83 @@ h1{
 
 .filter_bar .genre_container:hover {
   border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+/* search friend  */
+.user_search_friends_container{
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.user_search_friends_container input{
+  width: 95%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  border-color: black;
+}
+
+.user_search_friends_container input:focus{
+  outline: none;
+}
+
+.search_user_info{
+  border-radius: 0 0 5px 5px;
+  box-shadow: 5px 5px 5px rgb(107, 107, 107);
+  text-align: center;
+  padding: 1vw;
+  margin: 1vh 0;
+}
+
+.search_user_info button{
+  margin: 0 0.5em;
+}
+
+.search_user_info img{
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+}
+
+/* -- friend frofile -- */
+
+.friend_info_container{
+  width: 90vw;
+  height: 110vh;
+  margin: 2vh auto;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255 , 0.2);
+  border-radius: 5px;
+}
+
+.friend_info_content{
+  width: 40vw;
+  height: 10vh;
+  overflow: hidden;
+  margin: 1vh auto 0 auto; 
+}
+
+.friend_info_content img {
+  width: 5em;
+  height: 5em;
+  border-radius: 40%;
+  margin: 1vh 2vw;
+  background-color: white;
+  box-shadow: 5px 5px 10px black;
+}
+
+.friend_info_content label {
+  text-transform: capitalize; 
+  color: white; 
+  text-decoration: underline;
+  font-size: 2em;
+  text-shadow: 10px 12px 8px black;
+}
+
+.friend_favorate_movies_container{
+  width: 90vw;
+  height: 85vh;
+  position: relative;
+  top: 8vh;
 }
