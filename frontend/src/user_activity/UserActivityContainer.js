@@ -17,6 +17,7 @@ class UserActivityContainer extends Component{
     render(){
         let login_users = this.props.login_users
         let current_user = this.props.current_user 
+        console.log(current_user)
         let friends_list = current_user ? this.props.user_lists.filter(user => current_user.friends_list.includes(user.username)).sort(user => login_users.includes(user.username) ? -1 : 1) : []
         return(
             <div className="user_activity_container inline_block">
@@ -41,7 +42,9 @@ class UserActivityContainer extends Component{
                             </button>
                             <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalScrollable">
                                 Inbox
-                                <span>3</span>
+                                {current_user.notifications.length > 0 ? 
+                                    <span>{current_user.notifications.length}</span>
+                                : null }
                             </button>
                             <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
                                 <label>&#9881;</label>
@@ -73,11 +76,12 @@ class UserActivityContainer extends Component{
                                             .then(res => res.json())
                                             .then(data => {
                                                 this.props.setViewFriendProfile(data)
+                                                this.props.setCurrentUserInNavbar(true)
                                                 this.props.history.push('/friend_profile')
                                             })
                                         }}
                                         data-dismiss="modal"
-                                    >User Profile</button>
+                                    >Profile</button>
                                     <button>
                                         <svg className="bi bi-chat-dots-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"/>
@@ -111,7 +115,8 @@ const mapDispatchToProps = dispatch => {
     return{
         displayChat: () => dispatch({type: "DISPLAY_CHAT"}),
         unFriend: friendname => dispatch({type: "UNFRIEND" , friendname}),
-        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW__obj_PROFILE", friend_obj})
+        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW_OBJ_PROFILE", friend_obj}),
+        setCurrentUserInNavbar: status => dispatch({type: "SET_CURRENT_USER_IMG_IN_NAVBAR", status})
     }
 }
 

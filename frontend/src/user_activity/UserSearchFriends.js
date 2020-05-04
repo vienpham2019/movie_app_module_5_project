@@ -6,6 +6,7 @@ class UserSearchFriends extends Component {
     render(){
         let user_lists = this.props.display_user_lists 
         let display_user_lists = this.props.userName ? user_lists.filter(user => user.username !== this.props.userName) : user_lists
+        let friends_request_name = this.props.current_user.friends_request_name
         let friends_list = this.props.current_user.friends_list
         return(
             <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -25,16 +26,19 @@ class UserSearchFriends extends Component {
                                     <div className="search_user_info">
                                         <img src={user.user_profile_img ? user.user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
                                         <label>{user.username}</label>
-                                        {friends_list.includes(user.username) 
-                                        ? <button 
-                                            className="btn btn-outline-info"
-                                            onClick={() => this.props.unFriend(user.username)}
-                                        >Unfriend</button>
-                                        : <button 
-                                            className="btn btn-outline-info"
-                                            onClick={() => this.props.addFriend(user.username)}
-                                        >Add Friend</button>
-                                        }
+                                            {!friends_list.find(friendname => friendname === user.username) ? 
+                                                friends_request_name.includes(user.username) 
+                                                ? <button 
+                                                    className="btn btn-outline-info"
+                                                    onClick={() => this.props.cancelAddFriendRequest(user.username)}
+                                                >Cancel Request</button>
+                                                : <button 
+                                                    className="btn btn-outline-info"
+                                                    onClick={() => {
+                                                        this.props.sendAddFriendRequest(user.username)
+                                                    }}
+                                                >Add Friend</button>
+                                            : null }
                                         <button 
                                             className="btn btn-outline-info"
                                             onClick={() => {
@@ -42,6 +46,7 @@ class UserSearchFriends extends Component {
                                                 .then(res => res.json())
                                                 .then(data => {
                                                     this.props.setViewFriendProfile(data)
+                                                    this.props.setCurrentUserInNavbar(true)
                                                     this.props.history.push('/friend_profile')
                                                 })
                                             }}
@@ -73,9 +78,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         searchUsername: username => dispatch({type: "SEARCH_USER_NAME", username}),
-        addFriend: friendname => dispatch({type: "ADDFRIEND" , friendname}),
-        unFriend: friendname => dispatch({type: "UNFRIEND" , friendname}),
-        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW_OBJ_PROFILE", friend_obj})
+        sendAddFriendRequest: friendname => dispatch({type: "SEND_ADDFRIEND_REQUEST" , friendname}),
+        cancelAddFriendRequest: friendname => dispatch({type: "CANCEL_ADDFRIEND_REQUEST" , friendname}),
+        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW_OBJ_PROFILE", friend_obj}),
+        setCurrentUserInNavbar: status => dispatch({type: "SET_CURRENT_USER_IMG_IN_NAVBAR", status})
     }
 }
 

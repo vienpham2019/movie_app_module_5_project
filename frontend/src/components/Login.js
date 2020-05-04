@@ -35,7 +35,10 @@ class Login extends Component {
                     username: data.username, 
                     favorate_movies: data.favorate_movies,
                     user_profile_img: data.user_profile_img,
-                    friends_list: data.friends
+                    friends_list: data.friends,
+                    notifications: data.notifications,
+                    chats: data.chats,
+                    friends_request_name: data.friends_request_name
                 })
                 localStorage.token = data.token
             }

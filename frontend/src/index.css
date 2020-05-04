@@ -1298,3 +1298,23 @@ h1{
   position: relative;
   top: 8vh;
 }
+
+/* user notifications */
+
+.user_notification_container{
+  max-width: 23vw;
+  overflow: hidden;
+  border-bottom: 1px solid black;
+  padding: 1vh;
+}
+
+.notification_item img{
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  margin: 1vh;
+}
+
+.notification_item button{
+  margin: 0 1vh;
+}

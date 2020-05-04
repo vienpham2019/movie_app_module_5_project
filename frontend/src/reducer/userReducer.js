@@ -1,4 +1,5 @@
 import updateUserFavorateMovies from './updateUserFavorateMovies'
+import {updateUserNotification,updateUserFriendsList,addNotification} from './userNotifications'
 let initial_state = {
     login_users: [] ,
     current_user: null, 
@@ -68,17 +69,58 @@ export default function userReducer(state = initial_state, action) {
         case "SEARCH_USER_NAME": 
             let usernameRegx = new RegExp(action.username, "i")
             let display_user_lists = state.user_lists.filter(user => user.username.match(usernameRegx))
-            console.log(display_user_lists)
             return {
                 ...state, 
                 display_user_lists
             }
 
-        case "ADDFRIEND": 
+        case "SEND_ADDFRIEND_REQUEST": 
+            let add_friend_request = state.user_lists.find(user => user.username === action.friendname)
+            let add_notification = {  
+                title: "Friend Requests",  
+                friend: {username: state.current_user.username, user_profile_img: state.current_user.user_profile_img}
+            }
+            let add_notifications = [add_notification,...add_friend_request.notifications]
+            let add_friends_request_name = [add_friend_request.username,...state.current_user.friends_request_name]
+            updateUserNotification(add_friend_request.id, add_notifications, localStorage.token , add_friends_request_name)
             return {
                 ...state,
-                current_user: {...state.current_user, friends_list: [action.friendname,...state.current_user.friends_list]}
+                current_user: {...state.current_user,friends_request_name: add_friends_request_name}
             }
+
+        case "CANCEL_ADDFRIEND_REQUEST": 
+            let remove_friend_request = state.user_lists.find(user => user.username === action.friendname)
+            let remove_notification = {  
+                title: "Friend Requests",  
+                friend: {username: state.current_user.username, user_profile_img: state.current_user.user_profile_img}
+            }
+            let remove_notifications = remove_friend_request.notifications.filter(notif => notif !== remove_notification)
+            let remove_friends_request_name = state.current_user.friends_request_name.filter(friendname => friendname !== remove_friend_request.username)
+            updateUserNotification(remove_friend_request.id, remove_notifications, localStorage.token , remove_friends_request_name)
+            return {
+                ...state,
+                current_user: {...state.current_user,friends_request_name: remove_friends_request_name}
+            }
+
+        case "CONFIRM_ADDFRIEND": 
+            let confirm_friend_id = state.user_lists.find(user => user.username === action.friendname)
+            let confirm_friends_list = [action.friendname,...state.current_user.friends_list]
+            let confirm_notifications = state.current_user.notifications.filter(notifi => notifi !== action.notification)
+            updateUserFriendsList(localStorage.token,confirm_friend_id.id,confirm_friends_list,confirm_notifications)
+            return {
+                ...state,
+                current_user: {
+                    ...state.current_user, 
+                    friends_list: confirm_friends_list,
+                    notifications: confirm_notifications,
+                }
+            }
+        
+        case "SEND_NOTIFICATION": 
+            let new_notification = {title: action.title}
+            let friendId = state.user_lists.find(user => user.username === action.friendname).id
+            addNotification(new_notification, friendId , state.current_user.username)
+            return state
         
         case "UNFRIEND": 
             return {
