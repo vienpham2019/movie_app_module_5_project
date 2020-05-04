@@ -60,7 +60,9 @@ class App extends Component {
         return(
             <Router>
                 <div>
-                <NavBar />
+                <Route 
+                    render = {(routerProps) => <NavBar {...routerProps}/>}
+                /> 
                 <Route 
                     exact path = "/" 
                     render = {(routerProps) => <HomePage {...routerProps} />} 

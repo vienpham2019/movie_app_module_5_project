@@ -28,6 +28,7 @@ class Login extends Component {
                 this.setState({errors: data.errors})
             }else{
                 socket.emit('user connect' , {userName: data.username})
+                this.props.setCurrentUserInNavbar(true)
                 this.props.history.push("/")
                 this.props.setUserName({userName: data.username})
                 this.props.setCurrentUser({
@@ -79,7 +80,8 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => {
     return{
         setUserName: user_obj => dispatch({type: "SET_USER_NAME" , user_obj}),
-        setCurrentUser: user => dispatch({type: "SET_CURRENT_USER" , user})
+        setCurrentUser: user => dispatch({type: "SET_CURRENT_USER" , user}),
+        setCurrentUserInNavbar: status => dispatch({type: "SET_CURRENT_USER_IMG_IN_NAVBAR", status})
     }
 }
 

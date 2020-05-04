@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => {
         searchUsername: username => dispatch({type: "SEARCH_USER_NAME", username}),
         addFriend: friendname => dispatch({type: "ADDFRIEND" , friendname}),
         unFriend: friendname => dispatch({type: "UNFRIEND" , friendname}),
-        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW__obj_PROFILE", friend_obj})
+        setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW_OBJ_PROFILE", friend_obj})
     }
 }
 

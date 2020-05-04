@@ -28,6 +28,28 @@ h1{
   margin: 0 1vw;
 }
 
+.current_user_img{
+  height: 5vh;
+  overflow: hidden;
+  float: right;
+  margin: 0 2vw;
+  cursor: pointer;
+}
+
+.current_user_img img{
+  width: 3em;
+  height: 3em;
+  background-color: white;
+  border-radius: 50%;
+  margin: 0 1vh;
+}
+
+.current_user_img label{
+  color: white;
+  text-transform: capitalize;
+  font-size: 1.5em;
+}
+
 /* --Login and Signup Page -- */
 
 .login-signup-container{
@@ -698,13 +720,24 @@ h1{
 }
 
 .setup_and_search_btn button{
-  width: 10em;
   height: 3em;
   margin: 0.5em;
 }
 
 .setup_and_search_btn button:last-child{
   width: 3em;
+}
+
+.setup_and_search_btn button:nth-child(2) span{
+  width: 1.5em;
+  height: 1.5em;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  float: right;
+  top: -1.3em;
+  left: 1.4em;
 }
 
 .setup_and_search_btn button:last-child label{

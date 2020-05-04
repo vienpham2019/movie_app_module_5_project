@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import UserEditForm from './UserEditForm'
 import UserSearchFriends from './UserSearchFriends'
 import getUserInfomation from '../reducer/getUserInfomation'
+import UserNotifications from './UserNotifications'
 // import socketIOClient from 'socket.io-client'
 // const socket = socketIOClient("http://localhost:4000")
 
@@ -15,7 +16,6 @@ class UserActivityContainer extends Component{
 
     render(){
         let login_users = this.props.login_users
-        console.log(login_users)
         let current_user = this.props.current_user 
         let friends_list = current_user ? this.props.user_lists.filter(user => current_user.friends_list.includes(user.username)).sort(user => login_users.includes(user.username) ? -1 : 1) : []
         return(
@@ -24,6 +24,7 @@ class UserActivityContainer extends Component{
                     <div>
                         <UserEditForm /> 
                         <UserSearchFriends history= {this.props.history}/> 
+                        <UserNotifications /> 
                     </div>
                 : null }
                 <div className="user_profile_info">
@@ -37,6 +38,10 @@ class UserActivityContainer extends Component{
                         <div className="setup_and_search_btn">
                             <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter">
                                 Search Friends 
+                            </button>
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalScrollable">
+                                Inbox
+                                <span>3</span>
                             </button>
                             <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
                                 <label>&#9881;</label>

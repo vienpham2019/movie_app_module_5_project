@@ -37,6 +37,8 @@ class MovieShowHeader extends Component {
     render(){
         let movie = this.props.movie
         let favorate_movies = this.props.current_user ? this.props.current_user.favorate_movies : []
+        console.log(favorate_movies)
+        console.log(movie)
         return(
             <div className="movie_show_header" >
                 <div className="movie_show_item_img">
@@ -66,7 +68,7 @@ class MovieShowHeader extends Component {
                         if(!this.props.userName){
                             this.props.loginAlert()
                         }else{
-                            if(favorate_movies.includes(movie)){
+                            if(favorate_movies.find(movieId => movieId === movie.id)){
                                 this.removeFromFavorateAlert()
                             }else{
                                 this.props.addToFavorateMovies(movie)
@@ -74,7 +76,7 @@ class MovieShowHeader extends Component {
                             }
                         }
                     }}
-                >{favorate_movies.includes(movie) ? "♥" : "♡"} Add To Favorate</button>
+                >{favorate_movies.find(movieId => movieId === movie.id) ? "♥" : "♡"} Add To Favorate</button>
             </div>
         )
     }

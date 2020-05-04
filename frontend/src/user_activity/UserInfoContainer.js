@@ -27,14 +27,18 @@ class UserInfoContainer extends Component{
     }
 
     render(){
+        let movies = this.props.movies
         let current_user = this.props.current_user
+        let displayMovies = current_user ? current_user.favorate_movies.map(movieId => movies.find(movie => {
+            if(movie.id === movieId){
+                return movie
+            }
+        })) : []
         return(
             <div className="user_info_container inline_block">
                 <h1>My Collection</h1>
                 <div className="favorate_movies_container">
-                    {current_user ? 
-                        <DisplayMovie history = {this.props.history} displayMovies = {current_user.favorate_movies} />
-                    : null }
+                    <DisplayMovie history = {this.props.history} displayMovies = {displayMovies} />
                 </div>
                 {this.props.displayChat ? 
                     <div className="chat_container_tank">
@@ -49,7 +53,8 @@ class UserInfoContainer extends Component{
 const mapStateToProps = state => {
     return{
         displayChat: state.userReducer.displayChat,
-        current_user: state.userReducer.current_user
+        current_user: state.userReducer.current_user,
+        movies: state.movieReducer.movies 
     }
 }
 
