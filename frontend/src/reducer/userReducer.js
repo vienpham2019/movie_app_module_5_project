@@ -1,5 +1,5 @@
 import updateUserFavorateMovies from './updateUserFavorateMovies'
-import {updateUserNotification,updateUserFriendsList,addNotification} from './userNotifications'
+import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification} from './userNotifications'
 let initial_state = {
     login_users: [] ,
     current_user: null, 
@@ -117,10 +117,28 @@ export default function userReducer(state = initial_state, action) {
             }
         
         case "SEND_NOTIFICATION": 
-            let new_notification = {title: action.title}
+            let friend_notification = {title: action.title}
             let friendId = state.user_lists.find(user => user.username === action.friendname).id
-            addNotification(new_notification, friendId , state.current_user.username)
-            return state
+            let user_notifications = state.current_user.notifications.filter(notif => notif !== action.notification)
+            addNotification(friend_notification, friendId , state.current_user.id , user_notifications)
+            return {
+                ...state, 
+                current_user: {
+                    ...state.current_user,
+                    notifications: user_notifications
+                }
+            }
+
+        case "DELETE_NOTIFICATION":
+            let delete_user_notifications = state.current_user.notifications.filter(notif => notif !== action.notification)
+            deleteNotification(state.current_user.id, delete_user_notifications)
+            return {
+                ...state, 
+                current_user: {
+                    ...state.current_user,
+                    notifications: delete_user_notifications
+                }
+            }
         
         case "UNFRIEND": 
             return {

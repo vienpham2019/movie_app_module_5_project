@@ -32,6 +32,7 @@ class Login extends Component {
                 this.props.history.push("/")
                 this.props.setUserName({userName: data.username})
                 this.props.setCurrentUser({
+                    id: data.token, 
                     username: data.username, 
                     favorate_movies: data.favorate_movies,
                     user_profile_img: data.user_profile_img,

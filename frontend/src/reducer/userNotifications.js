@@ -1,3 +1,5 @@
+import UserNotifications from "../user_activity/UserNotifications"
+
 const updateUserNotification = (friendId,notifications,userId,friends_request_name) => {
     let obj = {
         method: "PATCH",
@@ -32,7 +34,7 @@ const updateUserFriendsList = (userId,friendId,friends_list, notifications) => {
     fetch("http://localhost:3000/update_user_friends_list",obj)
 }
 
-const addNotification = (notification,friendId,username) => {
+const addNotification = (friend_notification,friendId,userId,user_notifications) => {
     let obj = {
         method: "PATCH",
         headers: {
@@ -40,12 +42,28 @@ const addNotification = (notification,friendId,username) => {
         },
         body: JSON.stringify({
             friendId,
-            notification,
-            username
+            friend_notification,
+            userId,
+            user_notifications
         })
     }
 
     fetch("http://localhost:3000/add_notification ",obj)
 }
 
-export {updateUserNotification,updateUserFriendsList,addNotification} 
+const deleteNotification = (userId, user_notifications) => {
+    let obj = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            userId,
+            user_notifications
+        })
+    }
+
+    fetch("http://localhost:3000/delete_notification ",obj)
+}
+
+export {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification} 

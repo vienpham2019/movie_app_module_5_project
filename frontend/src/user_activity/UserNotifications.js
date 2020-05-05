@@ -35,7 +35,7 @@ class UserNotifications extends Component {
                                             <button
                                                 className="btn btn-outline-info"
                                                 onClick={() => {
-                                                    this.props.sendNotification(`${current_user.username} Not Accept Your Request.`,notification.friend.username)
+                                                    this.props.sendNotification(`${current_user.username} Not Accept Your Request.`,notification.friend.username,notification)
                                                 }}
                                             >Delete Request</button>
                                         </div>
@@ -44,6 +44,7 @@ class UserNotifications extends Component {
                                     <div className="notification_item">
                                         <button 
                                             className="btn btn-outline-info"
+                                            onClick={() => this.props.deleteUserNotification(notification)}
                                         >Confirm</button>
                                     </div>
                                 }
@@ -69,7 +70,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         confirmAddFriend: (friendname,notification) => dispatch({type: "CONFIRM_ADDFRIEND", friendname ,notification}),
-        sendNotification: (title,friendname) => dispatch({type: "SEND_NOTIFICATION", title, friendname})
+        sendNotification: (title,friendname,notification) => dispatch({type: "SEND_NOTIFICATION", title, friendname, notification}),
+        deleteUserNotification: notification => dispatch({type: "DELETE_NOTIFICATION" , notification})
     }
 }
 
