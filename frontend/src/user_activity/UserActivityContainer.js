@@ -4,14 +4,18 @@ import UserEditForm from './UserEditForm'
 import UserSearchFriends from './UserSearchFriends'
 import getUserInfomation from '../reducer/getUserInfomation'
 import UserNotifications from './UserNotifications'
-// import socketIOClient from 'socket.io-client'
-// const socket = socketIOClient("http://localhost:4000")
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class UserActivityContainer extends Component{
 
     // joinChatRoom = obj => {
     //     socket.emit('join chat room' , obj)
     //     socket.emit('send room info to user', obj)
+    // }
+
+    // joinPrivateRoomChat = () => {
+    //     socket.emit('join room chat' , {room_name: "private 1", username: this.props.userName})
     // }
 
     render(){
@@ -82,7 +86,13 @@ class UserActivityContainer extends Component{
                                         }}
                                         data-dismiss="modal"
                                     >Profile</button>
-                                    <button>
+                                    <button onClick={() => {
+                                        let displayChats = this.props.displayChats
+                                        let newChats = displayChats.includes(friend.username) 
+                                            ? displayChats.filter(chat => chat !== friend.username)  
+                                            : [friend.username,...displayChats]
+                                        this.props.updateDisplayChat(newChats)
+                                    }}>
                                         <svg className="bi bi-chat-dots-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"/>
                                         </svg>
@@ -107,13 +117,14 @@ const mapStateToProps = state => {
         login_users: state.userReducer.login_users,
         userName: state.movieReducer.userName,
         current_user: state.userReducer.current_user,
-        user_lists: state.userReducer.user_lists
+        user_lists: state.userReducer.user_lists,
+        displayChats: state.userReducer.displayChats
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        displayChat: () => dispatch({type: "DISPLAY_CHAT"}),
+        updateDisplayChat: newChats => dispatch({type: "UPDATE_DISPLAY_CHAT" , newChats}),
         unFriend: friendname => dispatch({type: "UNFRIEND" , friendname}),
         setViewFriendProfile: friend_obj => dispatch({type: "SET_VIEW_OBJ_PROFILE", friend_obj}),
         setCurrentUserInNavbar: status => dispatch({type: "SET_CURRENT_USER_IMG_IN_NAVBAR", status})

@@ -24,9 +24,14 @@ io.on('connection', socket => {
         io.sockets.emit('user logout' , obj)
     })
 
-    socket.on('send message' , obj => {
-        console.log(`User ${obj.author} send message`)
-        io.sockets.emit('recieve message' , obj) 
+    // socket.on('send message' , obj => {
+    //     console.log(`User ${obj.author} send message`)
+    //     io.sockets.emit('recieve message' , obj) 
+    // })
+
+    socket.on('send message to private room' , obj => {
+        console.log(`User ${obj.author} send message to ${obj.room_name}`)
+        io.sockets.emit('recieve message from private' , obj) 
     })
 
     socket.on('typing' , userName => {

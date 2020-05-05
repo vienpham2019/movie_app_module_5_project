@@ -40,9 +40,9 @@ class UserInfoContainer extends Component{
                 <div className="favorate_movies_container">
                     <DisplayMovie history = {this.props.history} displayMovies = {displayMovies} />
                 </div>
-                {this.props.displayChat ? 
+                {this.props.displayChats.length > 0 ? 
                     <div className="chat_container_tank">
-                        <ChatContainer/>
+                        {this.props.displayChats.map(chat => <ChatContainer friendname = {chat} key = {chat}/>)}
                     </div>
                 : null }
             </div> 
@@ -52,7 +52,7 @@ class UserInfoContainer extends Component{
 
 const mapStateToProps = state => {
     return{
-        displayChat: state.userReducer.displayChat,
+        displayChats: state.userReducer.displayChats,
         current_user: state.userReducer.current_user,
         movies: state.movieReducer.movies 
     }

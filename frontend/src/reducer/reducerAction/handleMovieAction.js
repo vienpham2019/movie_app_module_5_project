@@ -65,7 +65,6 @@ const add_like_or_dislike_for_comment = ( likes_or_dislikes , userName, amount ,
             filterArr(newComment.dislikeUsers,newComment.likeUsers,userName)
         }
     }
-    console.log(newReview)
 
     newReview.nestedComments = [...newReview.nestedComments.slice(0,commentIndex),newComment,...newReview.nestedComments.slice(commentIndex + 1)]
 

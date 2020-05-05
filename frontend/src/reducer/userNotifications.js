@@ -1,4 +1,4 @@
-import UserNotifications from "../user_activity/UserNotifications"
+
 
 const updateUserNotification = (friendId,notifications,userId,friends_request_name) => {
     let obj = {

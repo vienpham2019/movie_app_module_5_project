@@ -3,7 +3,7 @@ import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotif
 let initial_state = {
     login_users: [] ,
     current_user: null, 
-    displayChat: false,
+    displayChats: [],
     user_lists: [],
     display_user_lists: [],
     view_friend_profile: null,
@@ -30,10 +30,11 @@ export default function userReducer(state = initial_state, action) {
                 login_users: state.login_users.filter(username => username !== action.userName)
             }
             
-        case "DISPLAY_CHAT": 
+        case "UPDATE_DISPLAY_CHAT": 
+            console.log(action.newChats)
             return {
                 ...state, 
-                displayChat: !state.displayChat
+                displayChats: action.newChats
             }
 
         case "ADD_TO_FAVORATE_MOVIE":
@@ -82,7 +83,7 @@ export default function userReducer(state = initial_state, action) {
             }
             let add_notifications = [add_notification,...add_friend_request.notifications]
             let add_friends_request_name = [add_friend_request.username,...state.current_user.friends_request_name]
-            updateUserNotification(add_friend_request.id, add_notifications, localStorage.token , add_friends_request_name)
+            updateUserNotification(add_friend_request.id, add_notifications, state.current_user.id , add_friends_request_name)
             return {
                 ...state,
                 current_user: {...state.current_user,friends_request_name: add_friends_request_name}
@@ -96,7 +97,7 @@ export default function userReducer(state = initial_state, action) {
             }
             let remove_notifications = remove_friend_request.notifications.filter(notif => notif !== remove_notification)
             let remove_friends_request_name = state.current_user.friends_request_name.filter(friendname => friendname !== remove_friend_request.username)
-            updateUserNotification(remove_friend_request.id, remove_notifications, localStorage.token , remove_friends_request_name)
+            updateUserNotification(remove_friend_request.id, remove_notifications, state.current_user.id , remove_friends_request_name)
             return {
                 ...state,
                 current_user: {...state.current_user,friends_request_name: remove_friends_request_name}

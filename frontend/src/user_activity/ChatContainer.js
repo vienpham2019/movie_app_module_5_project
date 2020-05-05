@@ -21,24 +21,32 @@ class ChatContainer extends Component {
 	};
 
     sendMessage = () => {
-        socket.emit('send message' , {author: this.props.userName, content: this.state.text})
+        // socket.emit('send message' , {author: this.props.userName, content: this.state.text})
+        socket.emit('send message to private room' , {author: this.props.userName, content: this.state.text, reciver:  this.props.friendname})
     }
 
     componentDidMount(){
         this.scrollToBottom();
-        socket.on('recieve message' , obj => {
-            this.setState({
-                messages: [...this.state.messages,obj], 
-                text: "",
-                typing_userName: null 
-            })
-            this.scrollToBottom();
+        socket.on('recieve message from private' , obj => {
+            if(
+                (obj.author === this.props.friendname && obj.reciver === this.props.userName) || 
+                (obj.reciver === this.props.friendname && obj.author === this.props.userName)
+            ) {
+                this.setState({
+                    messages: [...this.state.messages,obj], 
+                    text: "",
+                    typing_userName: null 
+                })
+                this.scrollToBottom()
+            }
         })
 
         socket.on('typing' , userName => {
-            this.setState({
-                typing_userName: userName
-            })
+            if(userName === this.props.friendname){
+                this.setState({
+                    typing_userName: userName
+                })
+            }
         })
     }
 
@@ -49,7 +57,7 @@ class ChatContainer extends Component {
         return(
             <div className="chat_container">
                 <div className="chat_header">
-
+                    <h2>To: {this.props.friendname}</h2>
                 </div>
                 <div className="chat_lists" ref={this.mesRef}>
                     {this.state.messages.map(message => 
@@ -79,7 +87,7 @@ class ChatContainer extends Component {
                         value={this.state.text}
                         onChange={(e) => {
                             this.setState({text: e.target.value })
-                            socket.emit('typing' , this.props.userName)
+                            // socket.emit('typing' , this.props.userName)
                         }}
                     />
                     <div className="input-group-append">
