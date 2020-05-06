@@ -81,4 +81,20 @@ const addUserProfileImg = (userId,new_profile_img) => {
     fetch("http://localhost:3000/update_prifile_img",obj) 
 }
 
-export {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg} 
+const updateUserChats = (userId,chats,friendId ) => {
+    let obj = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            userId,
+            chats,
+            friendId
+        })
+    }
+
+    fetch("http://localhost:3000/update_user_chats",obj) 
+}
+
+export {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg,updateUserChats} 

@@ -9,7 +9,6 @@ class ChatContainer extends Component {
         super()
         this.state = {
             text: "",
-            messages: [],
             typing_userName: null 
         }
 
@@ -17,11 +16,10 @@ class ChatContainer extends Component {
     }
 
     scrollToBottom = () => {
-        this.mesRef.current.scrollTop = 256;
+        this.mesRef.current.scrollTop = this.mesRef.current.scrollHeight
 	};
 
     sendMessage = () => {
-        // socket.emit('send message' , {author: this.props.userName, content: this.state.text})
         socket.emit('send message to private room' , {author: this.props.userName, content: this.state.text, reciver:  this.props.friend_obj.username})
     }
 
@@ -33,10 +31,10 @@ class ChatContainer extends Component {
                 (obj.reciver === this.props.friend_obj.username && obj.author === this.props.userName)
             ) {
                 this.setState({
-                    messages: [...this.state.messages,obj], 
                     text: "",
                     typing_userName: null 
                 })
+                this.props.updateFriendChats([...this.props.chats,obj],this.props.friend_obj.username,this.props.friend_obj.id, obj.author)
                 this.scrollToBottom()
             }
         })
@@ -53,16 +51,16 @@ class ChatContainer extends Component {
     render(){
         let typing_userName = this.state.typing_userName
         let friend = this.props.friend_obj 
-        console.log(this.state.messages)
-        console.log(friend)
-        // let chatRoom = this.props.chatRoom
+        let chats = this.props.chats ? this.props.chats : []
+        console.log(this.props.current_user)
+        // console.log(this.props.login_users)
         return(
             <div className="chat_container">
                 <div className="chat_header">
                     <h2>To: {friend.username}</h2>
                 </div>
                 <div className="chat_lists" ref={this.mesRef}>
-                    {this.state.messages.map(message => 
+                    {chats.map(message => 
                         message.author !== this.props.userName ? 
                             <div className="user_chat_message_container">
                                 <div className="message_user_profile_img">
@@ -111,8 +109,16 @@ class ChatContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        userName: state.movieReducer.userName
+        userName: state.movieReducer.userName,
+        current_user: state.userReducer.current_user,
+        login_users: state.userReducer.login_users
     }
 }
 
-export default connect(mapStateToProps)(ChatContainer)
+const mapDispatchToProps = dispatch => {
+    return {
+        updateFriendChats: (newChats,friendname,friendId ,author) => dispatch({type: "UPDATE_FRIEND_CHATS" , newChats , friendname , friendId , author})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ChatContainer)

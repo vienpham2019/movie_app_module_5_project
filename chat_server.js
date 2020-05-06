@@ -12,6 +12,8 @@ const server = http.createServer(app)
 
 const io = socketIO(server)
 
+let login_users = []
+
 io.on('connection', socket => {
 
     socket.on('user connect', obj => {

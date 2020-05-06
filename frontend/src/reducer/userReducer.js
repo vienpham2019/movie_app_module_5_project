@@ -1,5 +1,5 @@
 import updateUserFavorateMovies from './updateUserFavorateMovies'
-import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg} from './userNotifications'
+import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg,updateUserChats} from './userNotifications'
 let initial_state = {
     login_users: [] ,
     current_user: null, 
@@ -31,7 +31,7 @@ export default function userReducer(state = initial_state, action) {
             }
             
         case "UPDATE_DISPLAY_CHAT": 
-            console.log(action.newChats)
+            // console.log(action.newChats)
             return {
                 ...state, 
                 displayChats: action.newChats
@@ -138,6 +138,20 @@ export default function userReducer(state = initial_state, action) {
                 current_user: {
                     ...state.current_user,
                     notifications: delete_user_notifications
+                }
+            }
+
+        case "UPDATE_FRIEND_CHATS": 
+            let newChats = state.current_user.chats
+            newChats[action.friendname] = action.newChats
+            if(action.author === state.current_user.username){
+                updateUserChats(state.current_user.id, action.newChats, action.friendId )
+            }
+            return {
+                ...state, 
+                current_user: {
+                    ...state.current_user,
+                    chats: newChats
                 }
             }
         
