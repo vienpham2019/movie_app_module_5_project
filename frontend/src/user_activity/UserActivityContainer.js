@@ -21,8 +21,8 @@ class UserActivityContainer extends Component{
     render(){
         let login_users = this.props.login_users
         let current_user = this.props.current_user 
-        console.log(current_user)
         let friends_list = current_user ? this.props.user_lists.filter(user => current_user.friends_list.includes(user.username)).sort(user => login_users.includes(user.username) ? -1 : 1) : []
+        console.log(friends_list)
         return(
             <div className="user_activity_container inline_block">
                 {this.props.userName ? 
@@ -88,9 +88,9 @@ class UserActivityContainer extends Component{
                                     >Profile</button>
                                     <button onClick={() => {
                                         let displayChats = this.props.displayChats
-                                        let newChats = displayChats.includes(friend.username) 
-                                            ? displayChats.filter(chat => chat !== friend.username)  
-                                            : [friend.username,...displayChats]
+                                        let newChats = displayChats.includes(friend) 
+                                            ? displayChats.filter(chat => chat !== friend)  
+                                            : [friend,...displayChats]
                                         this.props.updateDisplayChat(newChats)
                                     }}>
                                         <svg className="bi bi-chat-dots-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -1,5 +1,5 @@
 import updateUserFavorateMovies from './updateUserFavorateMovies'
-import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification} from './userNotifications'
+import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg} from './userNotifications'
 let initial_state = {
     login_users: [] ,
     current_user: null, 
@@ -53,11 +53,11 @@ export default function userReducer(state = initial_state, action) {
                 current_user: {...state.current_user, favorate_movies: remove_favorate_movies}
             }
 
-        case "UPDATE_CURRENT_USER": 
-            let {user_profile_img} = action.current_user
+        case "UPDATE_CURRENT_USER_PROFILE_IMG": 
+            addUserProfileImg(state.current_user.id, action.user_profile_img) 
             return {
                 ...state,
-                current_user: {...state.current_user, user_profile_img}, 
+                current_user: {...state.current_user, user_profile_img: action.user_profile_img}, 
             }
 
         case "ADD_TO_USER_LISTS": 

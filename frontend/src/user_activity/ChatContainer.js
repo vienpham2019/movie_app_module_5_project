@@ -22,15 +22,15 @@ class ChatContainer extends Component {
 
     sendMessage = () => {
         // socket.emit('send message' , {author: this.props.userName, content: this.state.text})
-        socket.emit('send message to private room' , {author: this.props.userName, content: this.state.text, reciver:  this.props.friendname})
+        socket.emit('send message to private room' , {author: this.props.userName, content: this.state.text, reciver:  this.props.friend_obj.username})
     }
 
     componentDidMount(){
         this.scrollToBottom();
         socket.on('recieve message from private' , obj => {
             if(
-                (obj.author === this.props.friendname && obj.reciver === this.props.userName) || 
-                (obj.reciver === this.props.friendname && obj.author === this.props.userName)
+                (obj.author === this.props.friend_obj.username && obj.reciver === this.props.userName) || 
+                (obj.reciver === this.props.friend_obj.username && obj.author === this.props.userName)
             ) {
                 this.setState({
                     messages: [...this.state.messages,obj], 
@@ -42,7 +42,7 @@ class ChatContainer extends Component {
         })
 
         socket.on('typing' , userName => {
-            if(userName === this.props.friendname){
+            if(userName === this.props.friend_obj.username){
                 this.setState({
                     typing_userName: userName
                 })
@@ -52,19 +52,21 @@ class ChatContainer extends Component {
 
     render(){
         let typing_userName = this.state.typing_userName
+        let friend = this.props.friend_obj 
         console.log(this.state.messages)
+        console.log(friend)
         // let chatRoom = this.props.chatRoom
         return(
             <div className="chat_container">
                 <div className="chat_header">
-                    <h2>To: {this.props.friendname}</h2>
+                    <h2>To: {friend.username}</h2>
                 </div>
                 <div className="chat_lists" ref={this.mesRef}>
                     {this.state.messages.map(message => 
                         message.author !== this.props.userName ? 
                             <div className="user_chat_message_container">
                                 <div className="message_user_profile_img">
-                                    <img src={message.profile_img ? message.profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                                    <img src={friend.user_profile_img ? friend.user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
                                 </div>
                                 <div className="message_content message_left">
                                     <p>{message.content}</p>

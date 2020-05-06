@@ -6,8 +6,8 @@ class UserEditForm extends Component {
     handleSubmit = e => {
         e.preventDefault()
         let user_profile_img = e.target[0].value === "" ? null : e.target[0].value
-        let current_user = {user_profile_img}
-        this.props.updateCurrentUser(current_user)
+        this.props.updateCurrentUserProfileImg(user_profile_img)
+        e.target.reset()
     }
 
     render() {
@@ -57,7 +57,7 @@ const mapStateToProps = state => {
 
 const updateCurrentUser = dispatch => {
     return {
-        updateCurrentUser: current_user => dispatch({type: "UPDATE_CURRENT_USER" , current_user})
+        updateCurrentUserProfileImg: user_profile_img => dispatch({type: "UPDATE_CURRENT_USER_PROFILE_IMG" , user_profile_img})
     }
 }
 

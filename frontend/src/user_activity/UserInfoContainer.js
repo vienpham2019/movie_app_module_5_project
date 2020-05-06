@@ -42,7 +42,7 @@ class UserInfoContainer extends Component{
                 </div>
                 {this.props.displayChats.length > 0 ? 
                     <div className="chat_container_tank">
-                        {this.props.displayChats.map(chat => <ChatContainer friendname = {chat} key = {chat}/>)}
+                        {this.props.displayChats.map(chat => <ChatContainer friend_obj = {chat} key = {chat}/>)}
                     </div>
                 : null }
             </div> 
