@@ -10,7 +10,7 @@ class Movies extends Component {
         return(
             <div className="search_movies_main_container">
                 <SearchBar /> 
-                <FilterMovies /> 
+                <FilterMovies history = {this.props.history}/> 
                 <DisplayMovies  history = {this.props.history} displayMovies = {this.props.displayMovies}/> 
             </div>
         )

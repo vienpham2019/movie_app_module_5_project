@@ -39,6 +39,7 @@ class UserActivityContainer extends Component{
         let login_users = this.props.login_users
         let current_user = this.props.current_user 
         let friends_list = current_user ? this.props.user_lists.filter(user => current_user.friends_list.includes(user.username)).sort(user => login_users.includes(user.username) ? -1 : 1) : []
+        let user_lists = this.props.user_lists
         return(
             <div className="user_activity_container inline_block">
                 {this.props.userName ? 
@@ -82,15 +83,9 @@ class UserActivityContainer extends Component{
                                         fontSize: '2em'
                                     }}
                                 >&#9679;</span>
-                                <img src={friend.user_profile_img ? friend.user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                                <img src={user_lists.find(user => user.username === friend.username).user_profile_img ? user_lists.find(user => user.username === friend.username).user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
                                 <label>{friend.username}</label>
                                 <div className="friend_user_info_btn">
-                                    <button 
-                                        className="btn btn-outline-danger"
-                                        onClick={() => {
-                                            this.unfriendAlert(friend.username)
-                                        }}
-                                    >Unfriend</button>
                                     <button 
                                         className="btn btn-outline-info"
                                         onClick={() => {
@@ -115,6 +110,12 @@ class UserActivityContainer extends Component{
                                             <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"/>
                                         </svg>
                                     </button>
+                                    <button 
+                                        className="btn btn-outline-danger"
+                                        onClick={() => {
+                                            this.unfriendAlert(friend.username)
+                                        }}
+                                    >Unfriend</button>
                                 </div>
                             </div>
                         )

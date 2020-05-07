@@ -30,7 +30,7 @@ class NavBar extends Component {
                                 <button
                                     className="btn btn-light nav_btn"
                                     onClick={() => {
-                                        this.props.setCurrentUserInNavbar(true)
+                                        this.props.setCurrentUserInNavbar(false)
                                         window.scroll(0,0)
                                     }}
                                 >

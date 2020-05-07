@@ -16,7 +16,7 @@ class ChatContainer extends Component {
     }
 
     scrollToBottom = () => {
-        this.mesRef.current.scrollTop = this.mesRef.current.scrollHeight
+        this.mesRef.current.scrollTop = 999
 	};
 
     sendMessage = () => {
@@ -24,7 +24,6 @@ class ChatContainer extends Component {
     }
 
     componentDidMount(){
-        this.scrollToBottom();
         socket.on('recieve message from private' , obj => {
             if(
                 (obj.author === this.props.friend_obj.username && obj.reciver === this.props.userName) || 
@@ -44,7 +43,6 @@ class ChatContainer extends Component {
                 this.setState({
                     typing_userName: obj.author
                 })
-                this.scrollToBottom()
             }
         })
     }
@@ -56,7 +54,14 @@ class ChatContainer extends Component {
         return(
             <div className="chat_container">
                 <div className="chat_header">
-                    <h2>To: {friend.username}</h2>
+                     <div className="chat_header_user_profile_img">
+                        <img src={friend.user_profile_img ? friend.user_profile_img : "https://cdn.onlinewebfonts.com/svg/img_507393.png"} alt="img"/>
+                        <h2>{friend.username}</h2>
+                    </div>
+                    <small onClick={() => {
+                        let newChats = this.props.displayChats.filter(chat => chat !== friend)
+                        this.props.updateDisplayChat(newChats)
+                    }}>&times;</small>
                 </div>
                 <div className="chat_lists" ref={this.mesRef}>
                     {chats.map(message => 
@@ -110,13 +115,15 @@ const mapStateToProps = state => {
     return {
         userName: state.movieReducer.userName,
         current_user: state.userReducer.current_user,
-        login_users: state.userReducer.login_users
+        login_users: state.userReducer.login_users,
+        displayChats: state.userReducer.displayChats
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateFriendChats: (newChats,friendname,friendId ,author) => dispatch({type: "UPDATE_FRIEND_CHATS" , newChats , friendname , friendId , author})
+        updateFriendChats: (newChats,friendname,friendId ,author) => dispatch({type: "UPDATE_FRIEND_CHATS" , newChats , friendname , friendId , author}),
+        updateDisplayChat: newChats => dispatch({type: "UPDATE_DISPLAY_CHAT" , newChats})
     }
 }
 
