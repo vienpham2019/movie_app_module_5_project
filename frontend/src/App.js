@@ -69,6 +69,7 @@ class App extends Component {
         socket.on('set_current_user', username => {
             if(this.props.current_user){
                 if(username === this.props.current_user.username){
+                    swal("New notification!", "check your profile page!");
                     this.getCurrentUserInfo()
                 }
             }
