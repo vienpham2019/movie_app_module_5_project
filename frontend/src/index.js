@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+
+// react-slick css
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"; 
+
+import App from './App'
+// import movieReducer from './reducer/movieReducer'
+import rootReducer from './reducer/rootReducer'
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store = {store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
