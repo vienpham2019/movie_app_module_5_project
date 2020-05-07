@@ -1,7 +1,13 @@
 import React , {Component} from 'react' 
 import {connect} from 'react-redux'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class UserNotifications extends Component {
+    sendToFriend = (friendname) => {
+        socket.emit('set_current_user', friendname)
+    }
+
     render(){
         let current_user = this.props.current_user
         let notifications =  current_user ? current_user.notifications : []
@@ -30,12 +36,14 @@ class UserNotifications extends Component {
                                                 className="btn btn-outline-info"
                                                 onClick={() => {
                                                     this.props.confirmAddFriend(notification.friend.username,notification)
+                                                    this.sendToFriend(notification.friend.username)
                                                 }}
                                             >Confirm</button>
                                             <button
                                                 className="btn btn-outline-info"
                                                 onClick={() => {
                                                     this.props.sendNotification(`${current_user.username} Not Accept Your Request.`,notification.friend.username,notification)
+                                                    this.sendToFriend(notification.friend.username)
                                                 }}
                                             >Delete Request</button>
                                         </div>

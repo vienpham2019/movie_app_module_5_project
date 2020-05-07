@@ -23,11 +23,11 @@ class UserProfile extends Component {
     })
 
     componentDidMount(){
-        // if(!this.props.userName){
-        //     window.scrollTo(0, 0)
-        //     this.props.history.push('/')
-        //     this.loginAlert()
-        // }
+        if(!this.props.userName){
+            window.scrollTo(0, 0)
+            this.props.history.push('/')
+            this.loginAlert()
+        }
     }
 
     render() {

@@ -18,27 +18,30 @@ io.on('connection', socket => {
 
     socket.on('user connect', obj => {
         console.log(`User ${obj.userName} login`)
-        io.sockets.emit('user login' , obj)
+        login_users = [obj.userName,...login_users]
+        io.sockets.emit('user login' , login_users)
     })
 
     socket.on('user disconnect' , obj => {
         console.log(`User ${obj.userName} logout`)
-        io.sockets.emit('user logout' , obj)
+        login_users = login_users.filter(username => username !== obj.userName)
+        io.sockets.emit('user logout' , login_users)
     })
 
-    // socket.on('send message' , obj => {
-    //     console.log(`User ${obj.author} send message`)
-    //     io.sockets.emit('recieve message' , obj) 
-    // })
+    socket.on('set_current_user' , username => {
+        if(login_users.includes(username)){
+            io.sockets.emit('set_current_user' , username)
+        }
+    })
 
     socket.on('send message to private room' , obj => {
         console.log(`User ${obj.author} send message to ${obj.room_name}`)
         io.sockets.emit('recieve message from private' , obj) 
     })
 
-    socket.on('typing' , userName => {
+    socket.on('typing' , obj => {
         console.log('typing')
-        socket.broadcast.emit('typing' , userName)
+        socket.broadcast.emit('typing' , obj)
     })
 })
 

@@ -37,8 +37,6 @@ class MovieShowHeader extends Component {
     render(){
         let movie = this.props.movie
         let favorate_movies = this.props.current_user ? this.props.current_user.favorate_movies : []
-        console.log(favorate_movies)
-        console.log(movie)
         return(
             <div className="movie_show_header" >
                 <div className="movie_show_item_img">

@@ -41,7 +41,6 @@ class Login extends Component {
                     chats: data.chats,
                     friends_request_name: data.friends_request_name
                 })
-                localStorage.token = data.token
             }
         })
     }

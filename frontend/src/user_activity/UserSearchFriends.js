@@ -1,8 +1,15 @@
 import React , {Component} from 'react' 
 import getUserInfomation from '../reducer/getUserInfomation'
 import {connect} from 'react-redux'
+import socketIOClient from 'socket.io-client'
+const socket = socketIOClient("http://localhost:4000")
 
 class UserSearchFriends extends Component {
+
+    sendToFriend = (friendname) => {
+        socket.emit('set_current_user', friendname)
+    }
+
     render(){
         let user_lists = this.props.display_user_lists 
         let display_user_lists = this.props.userName ? user_lists.filter(user => user.username !== this.props.userName) : user_lists
@@ -30,12 +37,16 @@ class UserSearchFriends extends Component {
                                                 friends_request_name.includes(user.username) 
                                                 ? <button 
                                                     className="btn btn-outline-info"
-                                                    onClick={() => this.props.cancelAddFriendRequest(user.username)}
+                                                    onClick={() => {
+                                                        this.props.cancelAddFriendRequest(user.username)
+                                                        this.sendToFriend(user.username)
+                                                    }}
                                                 >Cancel Request</button>
                                                 : <button 
                                                     className="btn btn-outline-info"
                                                     onClick={() => {
                                                         this.props.sendAddFriendRequest(user.username)
+                                                        this.sendToFriend(user.username)
                                                     }}
                                                 >Add Friend</button>
                                             : null }

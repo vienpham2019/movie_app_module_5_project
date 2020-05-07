@@ -17,6 +17,32 @@ const socket = socketIOClient("http://localhost:4000")
 
 class App extends Component {
 
+    getCurrentUserInfo = () => {
+        let obj = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId: this.props.current_user.id
+            })
+        }
+        fetch("http://localhost:3000/get_current_user_info",obj)
+        .then(res => res.json())
+        .then(data => {
+            this.props.setCurrentUser({
+                id: data.id, 
+                username: data.username, 
+                favorate_movies: data.favorate_movies,
+                user_profile_img: data.user_profile_img,
+                friends_list: data.friends,
+                notifications: data.notifications,
+                chats: data.chats,
+                friends_request_name: data.friends_request_name
+            })
+        })
+    }
+
     componentDidMount(){
         localStorage.clear()
         fetch("http://localhost:3000/movie")
@@ -30,15 +56,22 @@ class App extends Component {
         .then(res => res.json())
         .then(data => {
             this.props.addToUserLists(data)
-            console.log(data)
         })
 
         socket.on('user login' , obj => {
-            this.props.addUserLogin(obj.userName)
+            this.props.updateUserLogin(obj)
         })
 
         socket.on('user logout' , obj => {
-            this.props.removeUserLogout(obj.userName)
+            this.props.updateUserLogin(obj)
+        })
+
+        socket.on('set_current_user', username => {
+            if(this.props.current_user){
+                if(username === this.props.current_user.username){
+                    this.getCurrentUserInfo()
+                }
+            }
         })
     }
 
@@ -101,17 +134,18 @@ const mapStateToProps = state => {
     return {
         movie: state.movieReducer.movie,
         displayMovie: state.movieReducer.displayMovie,
-        userName: state.movieReducer.userName
+        userName: state.movieReducer.userName,
+        current_user: state.userReducer.current_user
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
         setMovies: movies => dispatch({type: "SET_MOVIES", movies}),
-        addUserLogin: userName => dispatch({type: "ADD_USER_LOGIN", userName}),
-        removeUserLogout: userName => dispatch({type: "REMOVE_USER_LOGOUT" , userName}),
+        updateUserLogin: userLogins => dispatch({type: "UPDATE_USER_LOGIN", userLogins}),
         setDisplayMovie: movies => dispatch({type: "SET_SEARCH_MOVIES", movies}),
-        addToUserLists: userLists => dispatch({type: "ADD_TO_USER_LISTS", userLists})
+        addToUserLists: userLists => dispatch({type: "ADD_TO_USER_LISTS", userLists}),
+        setCurrentUser: user => dispatch({type: "SET_CURRENT_USER" , user}),
     }
 }
 

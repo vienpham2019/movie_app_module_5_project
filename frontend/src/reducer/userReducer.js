@@ -1,5 +1,5 @@
 import updateUserFavorateMovies from './updateUserFavorateMovies'
-import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg,updateUserChats} from './userNotifications'
+import {updateUserNotification,updateUserFriendsList,addNotification,deleteNotification,addUserProfileImg,updateUserChats,unfriend} from './userNotifications'
 let initial_state = {
     login_users: [] ,
     current_user: null, 
@@ -18,20 +18,13 @@ export default function userReducer(state = initial_state, action) {
                 current_user: action.user
             }
 
-        case "ADD_USER_LOGIN":
+        case "UPDATE_USER_LOGIN":
             return{
                 ...state,
-                login_users: [...state.login_users, action.userName]
-            }
-        
-        case "REMOVE_USER_LOGOUT":
-            return{
-                ...state,
-                login_users: state.login_users.filter(username => username !== action.userName)
+                login_users: action.userLogins
             }
             
         case "UPDATE_DISPLAY_CHAT": 
-            // console.log(action.newChats)
             return {
                 ...state, 
                 displayChats: action.newChats
@@ -39,7 +32,7 @@ export default function userReducer(state = initial_state, action) {
 
         case "ADD_TO_FAVORATE_MOVIE":
             let add_favorate_movies = [action.favorate_movie.id,...state.current_user.favorate_movies]
-            updateUserFavorateMovies(add_favorate_movies,localStorage.token)
+            updateUserFavorateMovies(add_favorate_movies,state.current_user.id)
             return{
                 ...state,
                 current_user: {...state.current_user, favorate_movies: add_favorate_movies}
@@ -47,7 +40,7 @@ export default function userReducer(state = initial_state, action) {
             
         case "REMOVE_FROM_FAVORATE_MOVIE":
             let remove_favorate_movies = state.current_user.favorate_movies.filter(movieId => movieId !== action.favorate_movie.id)
-            updateUserFavorateMovies(remove_favorate_movies,localStorage.token)
+            updateUserFavorateMovies(remove_favorate_movies,state.current_user.id)
             return{
                 ...state,
                 current_user: {...state.current_user, favorate_movies: remove_favorate_movies}
@@ -107,7 +100,7 @@ export default function userReducer(state = initial_state, action) {
             let confirm_friend_id = state.user_lists.find(user => user.username === action.friendname)
             let confirm_friends_list = [action.friendname,...state.current_user.friends_list]
             let confirm_notifications = state.current_user.notifications.filter(notifi => notifi !== action.notification)
-            updateUserFriendsList(localStorage.token,confirm_friend_id.id,confirm_friends_list,confirm_notifications)
+            updateUserFriendsList(state.current_user.id,confirm_friend_id.id,confirm_friends_list,confirm_notifications)
             return {
                 ...state,
                 current_user: {
@@ -156,6 +149,8 @@ export default function userReducer(state = initial_state, action) {
             }
         
         case "UNFRIEND": 
+            let unfriend_friendId = state.user_lists.find(user => user.username === action.friendname).id
+            unfriend(state.current_user.id, unfriend_friendId)
             return {
                 ...state,
                 current_user: {...state.current_user, friends_list: state.current_user.friends_list.filter(friendname => friendname !== action.friendname)}

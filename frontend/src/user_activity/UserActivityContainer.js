@@ -4,25 +4,41 @@ import UserEditForm from './UserEditForm'
 import UserSearchFriends from './UserSearchFriends'
 import getUserInfomation from '../reducer/getUserInfomation'
 import UserNotifications from './UserNotifications'
+import swal from '@sweetalert/with-react'
 import socketIOClient from 'socket.io-client'
 const socket = socketIOClient("http://localhost:4000")
 
 class UserActivityContainer extends Component{
 
-    // joinChatRoom = obj => {
-    //     socket.emit('join chat room' , obj)
-    //     socket.emit('send room info to user', obj)
-    // }
+    sendToFriend = (friendname) => {
+        socket.emit('set_current_user', friendname)
+    }
 
-    // joinPrivateRoomChat = () => {
-    //     socket.emit('join room chat' , {room_name: "private 1", username: this.props.userName})
-    // }
+    unfriendAlert = (friend_name) => {
+        swal({
+            title: "Are you sure ?",
+            text: `You want to remove ${friend_name} from your friends list ? This process cannot be undone.`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                this.props.unFriend(friend_name)
+                this.sendToFriend(friend_name)
+                swal("Poof! This friend has been remove from your friends list!", {
+                icon: "success",
+                });
+            } else {
+                swal("This process has been cancel successfully.");
+            }
+          });
+    } 
 
     render(){
         let login_users = this.props.login_users
         let current_user = this.props.current_user 
         let friends_list = current_user ? this.props.user_lists.filter(user => current_user.friends_list.includes(user.username)).sort(user => login_users.includes(user.username) ? -1 : 1) : []
-        console.log(friends_list)
         return(
             <div className="user_activity_container inline_block">
                 {this.props.userName ? 
@@ -70,8 +86,10 @@ class UserActivityContainer extends Component{
                                 <label>{friend.username}</label>
                                 <div className="friend_user_info_btn">
                                     <button 
-                                        className="btn btn-outline-info"
-                                        onClick={() => this.props.unFriend(friend.username)}
+                                        className="btn btn-outline-danger"
+                                        onClick={() => {
+                                            this.unfriendAlert(friend.username)
+                                        }}
                                     >Unfriend</button>
                                     <button 
                                         className="btn btn-outline-info"
@@ -102,11 +120,6 @@ class UserActivityContainer extends Component{
                         )
                     : null }
                 </div>
-                {/* <div className="chatIcon" onClick={() => this.props.displayChat()}>
-                    <svg className="bi bi-chat-dots-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"/>
-                    </svg>
-                </div> */}
             </div> 
         )
     }

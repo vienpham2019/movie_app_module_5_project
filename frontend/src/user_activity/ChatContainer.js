@@ -39,11 +39,12 @@ class ChatContainer extends Component {
             }
         })
 
-        socket.on('typing' , userName => {
-            if(userName === this.props.friend_obj.username){
+        socket.on('typing' , obj => {
+            if(obj.author === this.props.friend_obj.username && obj.reciver === this.props.userName){
                 this.setState({
-                    typing_userName: userName
+                    typing_userName: obj.author
                 })
+                this.scrollToBottom()
             }
         })
     }
@@ -52,8 +53,6 @@ class ChatContainer extends Component {
         let typing_userName = this.state.typing_userName
         let friend = this.props.friend_obj 
         let chats = this.props.chats ? this.props.chats : []
-        console.log(this.props.current_user)
-        // console.log(this.props.login_users)
         return(
             <div className="chat_container">
                 <div className="chat_header">
@@ -87,7 +86,7 @@ class ChatContainer extends Component {
                         value={this.state.text}
                         onChange={(e) => {
                             this.setState({text: e.target.value })
-                            // socket.emit('typing' , this.props.userName)
+                            socket.emit('typing' , {author: this.props.userName, reciver: this.props.friend_obj.username})
                         }}
                     />
                     <div className="input-group-append">

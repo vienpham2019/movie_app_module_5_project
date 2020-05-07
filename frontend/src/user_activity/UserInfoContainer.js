@@ -1,10 +1,7 @@
 import React , {Component} from 'react'
 import ChatContainer from './ChatContainer'
 import {connect} from 'react-redux'
-// import MovieCard from '../movie_contents/MovieCard'
 import DisplayMovie from '../search_movies_container/DisplayMovies'
-// import socketIOClient from 'socket.io-client'
-// const socket = socketIOClient("http://localhost:4000")
 
 class UserInfoContainer extends Component{
 
@@ -14,18 +11,7 @@ class UserInfoContainer extends Component{
             chat_windows: [],
         }
     }
-    componentDidMount(){
-        // socket.on('user join chat room' , obj => {
-        //     if(obj.recieverName === this.props.userName){
-        //         socket.emit('join chat room' , obj)
-        //         this.setState({chat_windows: [...this.state.chat_windows, obj]})
-        //     }
-        //     if(obj.senderName === this.props.userName){
-        //         this.setState({chat_windows: [...this.state.chat_windows, obj]})
-        //     }
-        // })
-    }
-
+    
     render(){
         let movies = this.props.movies
         let current_user = this.props.current_user

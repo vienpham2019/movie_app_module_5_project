@@ -11,8 +11,7 @@ class UserEditForm extends Component {
     }
 
     render() {
-        let current_user = this.props.current_user
-        console.log(current_user)
+        // let current_user = this.props.current_user
         return(
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -33,8 +32,6 @@ class UserEditForm extends Component {
                                     <button 
                                         type="submit" 
                                         class="btn btn-primary" 
-                                        // data-dismiss="modal"
-                                        // onClick={() => alert("submit")}
                                     >Submit</button>
                                 </div>
                             </form>
