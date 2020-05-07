@@ -35,12 +35,11 @@ io.on('connection', socket => {
     })
 
     socket.on('send message to private room' , obj => {
-        console.log(`User ${obj.author} send message to ${obj.room_name}`)
+        // console.log(`User ${obj.author} send message to ${obj.room_name}`)
         io.sockets.emit('recieve message from private' , obj) 
     })
 
     socket.on('typing' , obj => {
-        console.log('typing')
         socket.broadcast.emit('typing' , obj)
     })
 })
